@@ -1,0 +1,46 @@
+.Book {
+    height: 80px;
+    text-decoration: none;
+    width: auto;
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    background: rgb(66, 168, 182);
+    border-radius:0.3rem;
+}
+
+.info {
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.info-link {
+    border-radius: 0.3rem;
+    padding: 0.2rem;
+    text-decoration: none;
+    color: honeydew;
+}
+
+.info-link:hover {
+    background: #FFF;
+    color:  rgb(66, 168, 182);
+}
+
+.buttons {
+    margin-left: auto;
+}
+
+.buttons button{
+    width: 4rem;
+    height: 2rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.buttons button:hover{
+    color: #234465;
+    background: #FFF;
+}

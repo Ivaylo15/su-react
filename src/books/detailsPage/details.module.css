@@ -1,0 +1,130 @@
+.product-view {
+    width: 83%;
+    height: auto;
+    margin-left: 10rem;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.product {
+    background: rgb(159, 173, 231);
+    display: flex;
+    padding: 4em;
+}
+
+.product-image img{
+    border-radius: 0.3em;
+    box-shadow: 5px 4px 9px rgba(0, 0, 0, .7);
+    display: block;
+    height: 498px;
+    width: 400px;
+}
+
+.product-infromation {
+    display: flex;
+    flex-direction: column;
+    padding: 0 2em;
+    width: 350px;
+
+}
+
+.product-title {
+    padding-bottom: 1em;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.product-author {
+    padding-bottom: 1em;
+    font-size: 1.2em;
+}
+
+.product-author a{
+    text-decoration: none;
+}
+
+.product-publisher {
+    padding-bottom: 1em;
+    font-size: 1.2em;
+}
+
+.product-publisher a{
+    text-decoration: none;
+}
+
+.product-description {
+    height: 200px;
+    background: rgb(190, 114, 161);
+    color: #FFF;
+    border: 1px solid rgba(138, 170, 131, 0.89);
+    border-radius: 0.6rem;
+    padding: 0.5em;
+    overflow: scroll;
+}
+
+.product-description::-webkit-scrollbar{
+    height: 0;
+    width: 0;
+}
+
+.product-description::-webkit-scrollbar-track{
+    background: #999;
+}
+
+.product-description::-webkit-scrollbar-thumb{
+    background: #999;
+}
+
+.product-price {
+    padding-bottom: 1em;
+    font-size: 1.2em;
+    margin-top: auto;
+}
+
+.product-genres {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product-genre {
+    border-radius: 0.3rem;
+    background: rgb(61, 88, 206);
+    padding: 0.2rem;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+    color: #FFF;
+    text-decoration: none;
+    
+}
+
+.product-genres a {
+    text-decoration: none;
+}
+
+.product-buttons a{
+    text-decoration: none;
+}
+
+.product-buttons button {
+    border: 1px solid #666;
+    border-radius: 0.6em;
+    background: rgb(190, 114, 161);
+    width: 100px;
+
+}
+
+.not-logged {
+    font-size: 22px;
+    margin: 5rem;
+    color: #234465;
+    display: block;
+    text-align: center;
+}
+
+.not-logged a{
+    text-decoration: none;
+}
+
+.not-logged:hover{
+    opacity: 0.7;
+}

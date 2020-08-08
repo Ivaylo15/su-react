@@ -1,0 +1,96 @@
+.Navigation {
+    position: fixed;
+    width: 100%;
+    height: 14vh;
+    background-color: #234465;
+    color: white;
+    top: 0;
+    border-bottom: 2px solid #ffa000;
+    border-top: 2px solid #ffa000;
+    margin-bottom: 25rem;
+}
+
+.main-image{
+    height: 14vh;
+    width: auto;
+}
+
+.lang {
+    width: 50px;
+    height: auto;
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    border: #ffa000 solid 1px;
+    margin-right: 2%;
+    cursor: pointer;
+    padding: 0.5%;
+    margin: 0.1%;
+}
+
+.searchBox {
+    position: absolute;
+    right: 20rem;
+    top: 2.5rem;
+    
+}
+
+.searchBox form {
+    display: flex;
+    align-items: center;
+}
+
+.searchField{
+    border-right-color: white;
+}
+
+.searchField .search{
+    border-right-color: white;
+    border-radius: 0.3rem 0 0 0.3rem;
+    border: none;
+    height: 30px;
+    width: 340px;
+}
+
+.searchButton{
+    height: 30px;
+    border-left-color: white;
+    background: white;
+
+}
+
+.searchButton button{
+    margin: 0;
+    padding: 0;
+    height: 30px;
+    width: 60px;
+    background: white;
+}
+
+
+.search-tags{
+    width: 400px;
+    height: auto;
+    display: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+}
+
+.searchBox:hover .search-tags {
+    display: flex;
+}
+
+.search-tag button {
+    margin: 0.5rem
+}
+
+.clicked {
+    background: #FFF;
+    color: #599ee4;
+}
+
+.not-clicked {
+    background: #599ee4;
+    color: #FFF;
+}

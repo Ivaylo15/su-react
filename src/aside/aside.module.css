@@ -1,0 +1,23 @@
+.Aside {
+    width: 5rem;
+    position: fixed;
+    top: 14.2vh;
+    right: 0;
+    background: #234465;
+    border-top: 2px solid #ffa000;
+    transition: width 200ms ease;
+    
+}
+
+.Aside:hover {
+    width: 15rem;
+}
+
+.Aside:hover p{
+    display: block;
+}
+
+.Aside h3 {
+    text-align: center;
+    margin: 0.5rem
+}

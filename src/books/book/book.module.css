@@ -1,0 +1,39 @@
+.Book {
+    padding: 1em;
+    text-decoration: none;
+    width: 320px;
+    height: auto;
+}
+
+
+.bookContainer {
+    width: 320px;
+    border-radius: 0.3em;
+    background: rgb(66, 168, 182);
+}
+
+.bookContainer:hover{
+    /* opacity: 0.8; */
+    transition: 2 ease-in;
+    box-shadow: 7px 5px rgba(85, 85, 114, 0.3);
+}
+
+.img img {
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+    width: 320px;
+    height: 470px;
+    object-fit: cover;
+    
+}
+
+.title {
+    padding: 1em ;
+    text-align: start;
+    height: 50px;
+}
+
+.Link {
+    text-decoration: none;
+    color: honeydew;
+}

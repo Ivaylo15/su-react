@@ -1,0 +1,6 @@
+.Error{
+    display: inline-block;
+    width: 83%;
+    min-height: 100vh;
+    vertical-align: top;
+}

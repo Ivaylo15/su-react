@@ -1,0 +1,8 @@
+.specific-user {
+    min-height: 100vh;
+}
+
+.specific-user img{
+    width: 200px;
+    height: auto;
+}

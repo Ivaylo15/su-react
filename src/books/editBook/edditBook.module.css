@@ -1,0 +1,64 @@
+.book-form {
+    width: 83%;
+    height: 100vh;
+    vertical-align: top;
+}
+
+.book-form h1{
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.form-control {
+    width: 30%;
+    margin: 0 auto;
+    padding: 1%;
+    text-align: center;
+}
+
+
+.form-control label{
+    float: left;
+    width: 30%;
+    text-align: right;
+}
+
+.form-control input {
+    text-align: center;
+    border-radius: 0.3em;
+    border: 1px solid #234465;
+    padding: 1%;
+    width: 50%;
+    color: #234465;
+}
+
+
+.form-control .textarea {
+    height: 150px;
+    width: 300px;
+    margin-left: 4rem;
+}
+
+.form-genres{
+    width: 400px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0.5rem;
+}
+
+.form-genres button {
+    margin: 0.5rem
+}
+
+.clicked {
+    background: #FFF;
+    color: #234465;
+}
+
+.not-clicked {
+    background: #234465;
+    color: #FFF;
+}

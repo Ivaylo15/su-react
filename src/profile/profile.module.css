@@ -1,0 +1,22 @@
+.Profile{
+    height: 100vh;
+    display: inline-block;
+    margin-left: 10rem;
+    width: 83%;
+    vertical-align: top;
+    padding: 0.5%;
+}
+
+.Profile img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.personal-info{
+    display: block;
+    text-align: center;
+    text-decoration: underline;
+    margin-bottom: 2%;
+    color: #234465;
+}

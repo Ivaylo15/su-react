@@ -1,0 +1,15 @@
+.AddComment {
+    margin-top: 5rem;
+}
+
+.AddComment h3 {
+    color: #234465;
+    display: block;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.AddComment textarea{
+    padding: 1rem;
+    background:rgba(167, 236, 238, 0.267);
+}

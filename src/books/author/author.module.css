@@ -1,0 +1,14 @@
+.Author {
+    display: block;
+    width: 200px;
+    height: auto;
+    text-align: right;
+    margin-left: auto;
+}
+
+.Author span {
+    vertical-align: bottom;
+    text-decoration: underline;
+    padding-right: 1%;
+    margin-bottom: auto;
+}

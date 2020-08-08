@@ -1,0 +1,16 @@
+.App {
+    max-width: 100%;
+    min-height: 100vh;
+    background-size: 100%;
+    background: rgb(172, 186, 233) ;
+}
+
+.Container {
+    margin: 14vh auto;
+    width: 65%;
+    padding: 10px;
+
+}
+
+
+
