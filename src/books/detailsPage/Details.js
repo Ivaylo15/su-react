@@ -154,7 +154,7 @@ const Deatils = (props) => {
                     <div className={styles['product-author']}>{lang === 'en' ? 'author' : 'автор'}:<Link to={`/author/${author}`} className={styles['info-link']}> {author}</Link></div>
                     <div className={styles['product-publisher']}>{lang === 'en' ? 'publisher' : 'издател'}: <Link to={`/publisher/${publisher}`} className={styles['info-link']}> {publisher}</Link></div>
                     <div className={styles['product-description']}>{description}</div>
-                    <div className={styles['product-price']}>{lang === 'en' ? 'price' : 'цена'}: {price}</div>
+                    <div className={styles['product-price']}>{lang === 'en' ? 'suggested price' : 'препорачителна цена'}: {price}</div>
                     {genres !== undefined ?
                         <div
                             className={styles['product-genres']}>{lang === 'en' ? 'genres' : 'жанрове'}: {genres.map(genre =>

@@ -1,14 +1,14 @@
-import React, { useContext, Fragment, useState } from 'react';
+import React, { useContext, Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import PageLink from '../shared/link/PageLink';
-// import NavWrapper from './navigationCss';
 import styles from './navigation.module.css';
 import { UserContext } from '../ContextWrapper';
+import { servises } from '../services/servises';
 
 
 
 const Navigation = (props) => {
-    const { logged, lang, setingLang, user, rendering } = useContext(UserContext);
+    const { logged, lang, setingLang, user, ren, rendering } = useContext(UserContext);
+    const [suggestedBooks, setSuggestedBooks] = useState([]);
     const [genres, setGenres] = useState([]);
     const [butRen, setButRen] = useState(0);
     const [searchValue, setSearcValue] = useState('');
@@ -17,6 +17,12 @@ const Navigation = (props) => {
 
     const { role } = user;
 
+    useEffect(() => {
+        servises.getSuggestedBooks(setSuggestedBooks);
+    }, [ren]);
+
+
+    //button selection
     const settingButRen = (v) => {
         setButRen(ren => ren = ren + v)
     }
@@ -38,7 +44,6 @@ const Navigation = (props) => {
     const handleSearchChange = event => {
         setSearcValue(event.target.value);
     }
-
     return (
         <Fragment>
             <nav className={styles.Navigation}>
@@ -47,25 +52,33 @@ const Navigation = (props) => {
                         {/* <img src="white-origami-bird.png" alt="origami" /> */}
                         {/* <img className={styles["main-image"]} src="https://images.pexels.com/photos/1005324/literature-book-open-pages-1005324.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="book" /> */}
                     </Link>
-                    <PageLink url="/books" name={lang === 'en' ? 'Books' : 'Книги'} />
+                    <Link to="/books" className={styles.listItem}>{lang === 'en' ? 'Books' : 'Книги'}</Link>
                     {!logged ?
                         <Fragment>
-                            <PageLink url="/register" name={lang === 'en' ? 'Register' : 'Регистрация'} />
-                            <PageLink url="/login" name={lang === 'en' ? 'Login' : 'Вход'} />
+                            <Link to="/register" className={styles.listItem}>{lang === 'en' ? 'Register' : 'Регистрация'}</Link>
+                            <Link to="/login" className={styles.listItem}>{lang === 'en' ? 'Login' : 'Вход'}</Link>
+
                         </Fragment>
                         :
                         <Fragment>
-                            <PageLink url="/profile" name={lang === 'en' ? 'Profile' : 'Профил'} />
+                            <Link to="/profile" className={styles.listItem}>{lang === 'en' ? 'Profile' : 'Профил'}</Link>
                             {
                                 role === 'admin' ?
                                     <Fragment>
-                                        <PageLink url="/addBook" name={lang === 'en' ? 'Add Book' : 'Добави Книга'} />
-                                        <PageLink url="/viewSuggestedBooks" name={lang === 'en' ? 'Suggested Books' : 'Предложени книги'} />
+                                        <Link to="/addBook" className={styles.listItem}>{lang === 'en' ? 'Add Book' : 'Добави Книга'}</Link>
+                                        <Link to="/viewSuggestedBooks" className={styles.listItem}>
+                                            {lang === 'en' ? `Suggested Books` : `Предложени книги`}
+                                            {suggestedBooks.length > 0 ?
+                                                <span className={styles["sugg-book-count"]}>
+                                                    {suggestedBooks.length}
+                                                </span>
+                                                : null}
+                                        </Link>
                                     </Fragment>
-                                    : <PageLink url="/suggestBook" name={lang === 'en' ? 'Suggest Book' : 'Предложи Книга'} />
+                                    : <Link to="/suggestBook" className={styles.listItem}>{lang === 'en' ? 'Suggest Book' : 'Предложи Книга'}</Link>
                             }
-                            <PageLink url="/favoriteBooks" name={lang === 'en' ? 'Favorite' : 'Любими'} />
-                            <PageLink url="/logout" name={lang === 'en' ? 'Logout' : 'Изход'} />
+                            <Link to="/favoriteBooks" className={styles.listItem}>{lang === 'en' ? 'Favorite' : 'Любими'}</Link>
+                            <Link to="/logout" className={styles.listItem}>{lang === 'en' ? 'Logout' : 'Изход'}</Link>
                         </Fragment>
                     }
 

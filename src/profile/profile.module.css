@@ -8,6 +8,8 @@
 }
 
 .Profile img{
+    height: 200px;
+    width: auto;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -19,4 +21,17 @@
     text-decoration: underline;
     margin-bottom: 2%;
     color: #234465;
+}
+
+.profile-comments a{
+    text-decoration: none;
+}
+
+.profile-comments button{
+    cursor: pointer;
+}
+
+.profile-comments button:hover{
+    color: #234465;
+    background: #FFF;
 }

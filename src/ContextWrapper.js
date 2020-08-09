@@ -45,7 +45,7 @@ const ContextWrapper = (props) => {
     };
 
     return (
-        <UserContext.Provider value={{ logged: logged, setingLogged: setingLogged, user: user, setingUser: setingUser, lang: lang, setingLang: setingLang, ren: ren, rendering: rendering }}>
+        <UserContext.Provider value={{ logged, setingLogged, user: user, setingUser: setingUser, lang, setingLang, ren: ren, rendering: rendering }}>
             {props.children}
         </UserContext.Provider>
     );

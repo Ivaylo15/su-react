@@ -1,8 +1,14 @@
 .specific-user {
     min-height: 100vh;
+    text-align: center;
 }
 
 .specific-user img{
     width: 200px;
     height: auto;
 }
+/* 
+.specific-user p{
+    margin-left: auto;
+    margin-right: auto;
+} */

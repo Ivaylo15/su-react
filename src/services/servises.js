@@ -241,6 +241,19 @@ export const servises = {
             })
             .catch(err => console.log(err));
     },
+    deleteSuggestedBook: (id, rendering) => {
+        console.log(id)
+        axios.delete(`//localhost:9999/api/suggestedBook/${id}`,
+            {
+                withCredentials: true,
+                credentials: 'include'
+            })
+            .then(res => {
+                console.log(res)
+                rendering()
+            })
+            .catch(err => console.log(err));
+    },
     postBook: (body, rendering, redirect) => {
         return fetch(`//localhost:9999/api/book`,
             {
@@ -333,8 +346,7 @@ export const servises = {
             })
             .then(res => {
                 const cookies = parseCookeis();
-                setingLogged(!!cookies['x-auth-token'])
-                // setingUser({})
+                setingLogged(!!cookies['x-auth-token']);
                 redirect();
             })
             .catch(err => console.log(err));

@@ -33,6 +33,10 @@
     margin-left: auto;
 }
 
+.buttons a{
+    text-decoration: none;
+}
+
 .buttons button{
     width: 4rem;
     height: 2rem;

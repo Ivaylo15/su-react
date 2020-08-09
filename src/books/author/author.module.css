@@ -12,3 +12,7 @@
     padding-right: 1%;
     margin-bottom: auto;
 }
+
+.Author span a{
+    text-decoration: none;
+}

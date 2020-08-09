@@ -1,19 +1,19 @@
 .Navigation {
     position: fixed;
     width: 100%;
-    height: 14vh;
+    height: 10vh;
     background-color: #234465;
     color: white;
     top: 0;
-    border-bottom: 2px solid #ffa000;
-    border-top: 2px solid #ffa000;
+    border-bottom: 2px solid #000;
+    border-top: 2px solid #000;
     margin-bottom: 25rem;
 }
 
-.main-image{
+/* .main-image{
     height: 14vh;
     width: auto;
-}
+} */
 
 .lang {
     width: 50px;
@@ -21,18 +21,24 @@
     position: absolute;
     top: 2rem;
     right: 2rem;
-    border: #ffa000 solid 1px;
+    border: #000 solid 1px;
     margin-right: 2%;
     cursor: pointer;
     padding: 0.5%;
     margin: 0.1%;
+    filter: grayscale(50%) opacity(0.9);
+}
+
+.lang:hover{
+    filter: grayscale(0) opacity(1);
+    background: rgb(241, 235, 235);
+    color: #000;
 }
 
 .searchBox {
     position: absolute;
-    right: 20rem;
-    top: 2.5rem;
-    
+    right: 15rem;
+    top: 2rem;
 }
 
 .searchBox form {
@@ -94,3 +100,40 @@
     background: #599ee4;
     color: #FFF;
 }
+
+.listItem{
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    /* height: auto; */
+    margin-right: 2%;
+    cursor: pointer;
+    /* padding: 0.5%;
+    margin: 0.1%; */
+    vertical-align: top;
+}
+
+.listItem:not(:first-child) {
+    padding: 2%;
+    /* margin-top: 1.5%; */
+    /* border-top: 2px solid #ffa000; */
+}
+
+.listItem:hover {
+    border-top: none;
+    /* border-bottom: 2px solid #ffa000; */
+    font-weight: bold;
+    background-color: #9dbcdb;
+    color: #234465;
+}
+
+.sugg-book-count {
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0.5rem;
+    background: #FFF;
+    color: red;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+}
+

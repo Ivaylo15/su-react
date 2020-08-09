@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './viewSuggestedBook.module.css';
 import { Link } from 'react-router-dom';
+import { servises } from '../../../../services/servises';
+import { UserContext } from '../../../../ContextWrapper';
 
 const ViewSuggestedBook = ({ book }) => {
-    const { title, author, link } = book;
+    const { rendering, lang } = useContext(UserContext);
+    const { _id, title, author, link } = book;
 
     const removeSug = () => {
-        
+        servises.deleteSuggestedBook(_id, rendering)
     }
 
     return (
@@ -17,8 +20,8 @@ const ViewSuggestedBook = ({ book }) => {
                 <div className={styles['info-link-box']}><a href={link} target="_blank" rel="noopener noreferrer" className={styles['info-link']}>{link}</a></div>
             </div>
             <div className={styles.buttons}>
-                <Link to="/addBook"><button>Add</button></Link>
-                <button onClick={removeSug}>Remove</button>
+                <Link to="/addBook"><button>{lang === 'en' ? 'Add' : 'Добави'}</button></Link>
+                <button onClick={removeSug}>{lang === 'en' ? 'Remove' : 'Изтрий'}</button>
             </div>
         </div>
     )

@@ -54,9 +54,9 @@
 
 .product-description {
     height: 200px;
-    background: rgb(190, 114, 161);
+    background: rgb(65, 150, 136);
     color: #FFF;
-    border: 1px solid rgba(138, 170, 131, 0.89);
+    border: 1px solid rgb(65, 150, 136);
     border-radius: 0.6rem;
     padding: 0.5em;
     overflow: scroll;
@@ -68,7 +68,7 @@
 }
 
 .product-description::-webkit-scrollbar-track{
-    background: #999;
+    background: rgb(205, 241, 197);
 }
 
 .product-description::-webkit-scrollbar-thumb{
@@ -106,9 +106,10 @@
 }
 
 .product-buttons button {
-    border: 1px solid #666;
+    cursor: pointer;
+    border: 1px solid rgba(65, 150, 136);
     border-radius: 0.6em;
-    background: rgb(190, 114, 161);
+    background: rgb(65, 150, 136);
     width: 100px;
 
 }

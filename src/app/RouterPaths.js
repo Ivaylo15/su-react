@@ -30,10 +30,11 @@ import ViewSuggestedBooks from '../books/suggestBook/viewSuggestedBooks/ViewSugg
 
 
 
-const RouterPaths = () => {
+const RouterPaths = (props) => {
   document.title = "WorkShop";
-  const { user } = useContext(UserContext);
+  const { user, logged } = useContext(UserContext);
   const { role } = user;
+  document.title = "Books";
 
   return (
     <Router>
@@ -43,23 +44,17 @@ const RouterPaths = () => {
           <Switch>
             <Route path="/" exact component={Books} />
             <Route path="/search" component={SearchPage} />
-            <Route path="/register" component={RegisterForm} />
-            {/* <Route path="/register" render={() => role === undefined ? <RegisterForm /> : <ErrorPage />} /> */}
-            {/* <Route path="/regval" component={RegisterFormValidation} /> */}
-            <Route path="/login" component={LoginForm} />
-            {/* <Route path="/login" render={() => role === undefined ? <LoginForm /> : <ErrorPage />} /> */}
-            {/* <Route path="/logout" render={() => role !== undefined ? <Logout /> : <Redirect to="/"/>} /> */}
-            <Route path="/logout" component={Logout} />
+            <Route path="/register" render={(props) => logged === false ? <RegisterForm {...props} /> : <ErrorPage />} />
+            <Route path="/login" render={(props) => logged === false ? <LoginForm {...props} /> : <ErrorPage />} />
+            <Route path="/logout" render={(props) => logged === true ? <Logout {...props} /> : <ErrorPage />} />
             <Route path="/books" component={Books} />
             <Route path="/details/:id" component={Deatils} />
             <Route path="/profile" render={() => role !== undefined ? <Profile /> : <ErrorPage />} />
             <Route path="/allComments/:id" component={AllComments} />
-            <Route path="/addBook" component={AddBook} />
-            {/* <Route path="/addBook" render={() => role === 'admin' ? <AddBook /> : <ErrorPage />} /> */}
-            {/* <Route path="/editBook/:id" render={() => role === 'admin' ? <EditBook /> : <ErrorPage />} /> */}
-            <Route path="/editBook/:id" component={EditBook} />
-            <Route path="/suggestBook" component={SuggestBook} />
-            <Route path="/viewSuggestedBooks" component={ViewSuggestedBooks} />
+            <Route path="/addBook" render={(props) => role === 'admin' ? <AddBook {...props} /> : <ErrorPage />} />
+            <Route path="/editBook/:id" render={(props) => role === 'admin' ? <EditBook {...props} /> : <ErrorPage />} />
+            <Route path="/suggestBook" render={(props) => role === 'user' ? <SuggestBook {...props} /> : <ErrorPage />} />
+            <Route path="/viewSuggestedBooks" render={(props) => role === 'admin' ? <ViewSuggestedBooks {...props} /> : <ErrorPage />} />
             <Route path="/user/:id" component={SpecificUser} />
             <Route path="/favoriteBooks" render={() => role !== undefined ? <FavoriteBooks /> : <ErrorPage />} />
             <Route path="/genres/:type" component={GenresView} />

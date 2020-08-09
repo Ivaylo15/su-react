@@ -6,7 +6,7 @@ import RouterPaths from './RouterPaths';
 
 
 function App() {
-  document.title = "WorkShop";
+
 
   return (
     <ContextWrapper>
