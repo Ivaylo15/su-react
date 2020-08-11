@@ -6,12 +6,8 @@ import styles from '../books.module.css';
 
 
 const FavoriteBooks = () => {
-    const { lang } = useContext(UserContext);
-    const [user, setUser] = useState({});
+    const { lang, user } = useContext(UserContext);
     const [books, setBooks] = useState([]);
-    useEffect(() => {
-        servises.getUser(setUser);
-    }, []);
 
     useEffect(() => {
         servises.getFavoriteBooks(user.favoriteBooks, setBooks);

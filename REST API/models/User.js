@@ -4,7 +4,7 @@ const saltRounds = 10;
 
 const Schema = mongoose.Schema;
 const Model = mongoose.model;
-const { String, Number, Boolean, ObjectId } = Schema.Types;
+const { String, ObjectId } = Schema.Types;
 
 const userSchema = new Schema({
 
@@ -35,19 +35,15 @@ const userSchema = new Schema({
         require: true
     },
 
-    // posts: [{
-    //     type: ObjectId,
-    //     ref: "Origami"
-    // }],
-
     books: [{
         type: ObjectId,
         ref: "Book"
     }],
 
-    // favoriteBooks: [{
-    //     type: Object,
-    // }],
+    cart: [{
+        type: ObjectId,
+        ref: "Book"
+    }],
 
     favoriteBooks: [{
         type: ObjectId,

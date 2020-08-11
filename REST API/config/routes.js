@@ -1,14 +1,14 @@
 const models = require('../models');
-const router = require('../routes');
 const config = require('../config/config');
 const utils = require('../utils');
+const user = require('../routes/user');
 const book = require('../routes/book');
 const suggestedBook = require('../routes/suggestedBook');
 const comment = require('../routes/comment');
 
 module.exports = (app) => {
 
-    app.use('/api/user', router.user);
+    app.use('/api/user', user);
 
     app.get('/api/auth', (req, res) => {
         const token = req.cookies[config.authCookieName];

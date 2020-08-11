@@ -1,0 +1,88 @@
+.cart-item{
+    height: 120px;
+    display: flex;
+    margin: 1rem;
+    justify-content: space-between;
+}
+
+.cart-image img{
+    height: 120px;
+    width: auto;
+}
+
+.cart-book-info{
+    width: 34%;
+    display: flex;
+}
+
+.cart-book-text{
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 1rem 1rem;
+}
+
+.cart-book-text a{
+    text-decoration: none;
+}
+
+.cart-book-text a:hover{
+    color: rgb(221, 112, 10);
+}
+
+.cart-book-text span{
+    margin-bottom: 1rem;
+}
+
+.price{
+    width: 20%;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.amount{
+    width: 21%;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.amount input{
+    text-align: center;
+    width: 30px;
+    height: 26px;
+}
+
+.amount button{
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.left-button{
+    border-radius: 3px 0px 0px 3px;
+}
+
+.right-button{
+    border-radius: 0px 3px 3px 0px;
+}
+
+.remove{
+    width: 2%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.remove button{
+    cursor: pointer;
+    font-size: 20px;
+    color: #000;
+    background: none;
+    margin: 0;
+    height: 30px;
+    width: 30px;
+    border: none;
+}

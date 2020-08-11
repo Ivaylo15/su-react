@@ -111,12 +111,8 @@
     /* padding: 0.5%;
     margin: 0.1%; */
     vertical-align: top;
-}
-
-.listItem:not(:first-child) {
     padding: 2%;
-    /* margin-top: 1.5%; */
-    /* border-top: 2px solid #ffa000; */
+
 }
 
 .listItem:hover {
@@ -128,7 +124,7 @@
 }
 
 .sugg-book-count {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: bold;
     margin: 0.5rem;
     background: #FFF;

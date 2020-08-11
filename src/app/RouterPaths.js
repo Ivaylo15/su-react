@@ -27,6 +27,7 @@ import EditBook from '../books/editBook/EditBook';
 import AllComments from '../profile/allComments/AllComments';
 import SuggestBook from '../books/suggestBook/suggestBook/SuggestBook';
 import ViewSuggestedBooks from '../books/suggestBook/viewSuggestedBooks/ViewSuggestedBooks';
+import Cart from '../books/cart/Cart';
 
 
 
@@ -56,7 +57,8 @@ const RouterPaths = (props) => {
             <Route path="/suggestBook" render={(props) => role === 'user' ? <SuggestBook {...props} /> : <ErrorPage />} />
             <Route path="/viewSuggestedBooks" render={(props) => role === 'admin' ? <ViewSuggestedBooks {...props} /> : <ErrorPage />} />
             <Route path="/user/:id" component={SpecificUser} />
-            <Route path="/favoriteBooks" render={() => role !== undefined ? <FavoriteBooks /> : <ErrorPage />} />
+            <Route path="/favoriteBooks" render={(props) => role !== undefined ? <FavoriteBooks {...props} /> : <ErrorPage />} />
+            <Route path="/cart" render={(props) => role === 'user' ? <Cart {...props} /> : <ErrorPage />} />
             <Route path="/genres/:type" component={GenresView} />
             <Route path="/author/:type" component={AuthorsView} />
             <Route path="/publisher/:type" component={PublishersView} />

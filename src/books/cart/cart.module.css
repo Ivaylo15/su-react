@@ -1,0 +1,53 @@
+.cart{
+    min-height: 90vh;
+}
+
+.cart-layout{
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem;
+    font: bolder;
+    font-size: 20px;
+}
+
+.product{
+    width: 34%;
+}
+
+.price{
+    width: 20%;
+    text-align: center;
+}
+
+.amount{
+    width: 21%;
+    text-align: center;
+}
+
+.remove{
+    width: 2%;
+}
+
+.check-out{
+    background: rgb(230, 45, 101);
+    margin: 1rem;
+    padding: 1rem;
+    width: 30%;
+    margin-left: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.check-out span{
+    font-size: 17px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.check-out button{
+    cursor: pointer;
+    background: #A27;
+    margin-right: 1rem;
+    margin-top: auto;
+    margin-bottom: auto;
+}

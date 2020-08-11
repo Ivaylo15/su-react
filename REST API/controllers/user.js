@@ -1,6 +1,7 @@
 const models = require('../models');
 const config = require('../config/config');
 const utils = require('../utils');
+const { model } = require('mongoose');
 
 module.exports = {
     get: (req, res, next) => {
@@ -11,7 +12,7 @@ module.exports = {
 
     getSpecificUser: (req, res, next) => {
         const userId = req.params.id;
-        models.User.findOne({ _id : userId})
+        models.User.findOne({ _id: userId })
             .then((users) => res.send(users))
             .catch(next)
     },
@@ -69,13 +70,22 @@ module.exports = {
         models.User.updateOne({ _id: id }, { favoriteBooks: newFavoriteBooks })
             .then((updatedUser) => res.send(updatedUser))
             .then(res => console.log(res))
-            .catch(next)
+            .catch(next);
+    },
+
+    putCart: (req, res, next) => {
+        const id = req.params.id;
+        const newCartBooks = req.body;
+        models.User.updateOne({ _id: id }, { cart: newCartBooks })
+            .then((updatedUser) => res.send(updatedUser))
+            .then(res => console.log(res))
+            .catch(next);
     },
 
     delete: (req, res, next) => {
         const id = req.params.id;
         models.User.deleteOne({ _id: id })
             .then((removedUser) => res.send(removedUser))
-            .catch(next)
+            .catch(next);
     }
 };

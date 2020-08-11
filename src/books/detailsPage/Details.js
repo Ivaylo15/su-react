@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useReducer } from 'react';
+import React, { useContext, useEffect, useState, useReducer, Fragment } from 'react';
 import styles from './details.module.css';
 import { UserContext } from '../../ContextWrapper';
 import { servises } from '../../services/servises';
@@ -10,6 +10,7 @@ const initialState = {
     user: {},
     book: {},
     comments: [],
+    inCart: false,
     favorite: false,
     score: '',
     userScore: ''
@@ -23,6 +24,8 @@ const reducer = (state, action) => {
             return { ...state, book: action.payload };
         case 'getComments':
             return { ...state, comments: action.payload };
+        case 'isInCart':
+            return { ...state, inCart: action.payload, };
         case 'isFavorite':
             return { ...state, favorite: action.payload, };
         case 'userScore':
@@ -59,8 +62,8 @@ const Deatils = (props) => {
     //triggering useEffect
     const [newScore, setNewScore] = useState('');
     let url = props.location.pathname.split('/')[2];
-    const { _id: userId, favoriteBooks, role } = state.user;
-    const { _id, title, image, author, publisher, description, price, genres, raiting } = state.book;
+    const { _id: userId, cart, favoriteBooks, role } = state.user;
+    const { _id: bookId, title, image, author, publisher, description, price, genres, raiting } = state.book;
 
     useEffect(() => {
         servises.getUserDispatch(dispatch);
@@ -78,17 +81,29 @@ const Deatils = (props) => {
         const isFavorite = () => {
             if (favoriteBooks !== undefined) {
                 favoriteBooks.forEach(userBook => {
-                    if (userBook === _id) {
+                    if (userBook === bookId) {
                         dispatch({ type: 'isFavorite', payload: true });
                         console.log('fav');
-                        return;
                     }
                 });
             };
         };
-
         isFavorite();
-    }, [_id, favoriteBooks]);
+    }, [bookId, favoriteBooks]);
+
+    useEffect(() => {
+        const isInCart = () => {
+            if (cart !== undefined) {
+                cart.forEach(userBook => {
+                    if (userBook === bookId) {
+                        dispatch({ type: 'isInCart', payload: true });
+                        console.log('cart');
+                    }
+                });
+            };
+        };
+        isInCart();
+    }, [bookId, cart]);
 
     useEffect(() => {
         dispatch({ type: 'userScore', payload: raiting, userId: userId });
@@ -100,15 +115,29 @@ const Deatils = (props) => {
         console.log('sum raiting')
     }, [raiting, newScore]);
 
+    const addCart = () => {
+        cart.push(bookId);
+        servises.putCart(cart, userId);
+        dispatch({ type: 'isInCart', payload: true });
+        rendering();
+    };
+
+    const removeCart = () => {
+        cart.splice(cart.indexOf(bookId), 1);
+        servises.putCart(cart, userId);
+        dispatch({ type: 'isInCart', payload: false });
+        rendering();
+    }
+
     const addFavorite = () => {
-        favoriteBooks.push(_id);
+        favoriteBooks.push(bookId);
         servises.putFavoriteBook(favoriteBooks, userId);
         dispatch({ type: 'isFavorite', payload: true });
         rendering();
     };
 
     const removeFavorite = () => {
-        favoriteBooks.splice(favoriteBooks.indexOf(_id), 1);
+        favoriteBooks.splice(favoriteBooks.indexOf(bookId), 1);
         servises.putFavoriteBook(favoriteBooks, userId);
         dispatch({ type: 'isFavorite', payload: false });
         rendering();
@@ -139,9 +168,9 @@ const Deatils = (props) => {
             }
             raiting.push(body);
         }
-        servises.putBookRating(raiting, _id);
+        servises.putBookRating(raiting, bookId);
     };
-
+    console.log(state.inCart)
     return (
         <div className={styles['product-view']}>
             <h2>{lang === 'en' ? 'Details' : 'Детайли'}</h2>
@@ -154,7 +183,7 @@ const Deatils = (props) => {
                     <div className={styles['product-author']}>{lang === 'en' ? 'author' : 'автор'}:<Link to={`/author/${author}`} className={styles['info-link']}> {author}</Link></div>
                     <div className={styles['product-publisher']}>{lang === 'en' ? 'publisher' : 'издател'}: <Link to={`/publisher/${publisher}`} className={styles['info-link']}> {publisher}</Link></div>
                     <div className={styles['product-description']}>{description}</div>
-                    <div className={styles['product-price']}>{lang === 'en' ? 'suggested price' : 'препорачителна цена'}: {price}</div>
+                    <div className={styles['product-price']}>{lang === 'en' ? `price: ${price}lv` : `цена: ${price}лв`}</div>
                     {genres !== undefined ?
                         <div
                             className={styles['product-genres']}>{lang === 'en' ? 'genres' : 'жанрове'}: {genres.map(genre =>
@@ -175,21 +204,32 @@ const Deatils = (props) => {
                         </select>
                         {
                             state.favorite ?
-                                <button type="submit" onClick={removeFavorite}>{lang === 'en' ? 'remove favorite' : 'премахни от любими'}</button> :
-                                <button type="submit" onClick={addFavorite}>{lang === 'en' ? 'favorite' : 'любими'}</button>
+                                <button onClick={removeFavorite}>{lang === 'en' ? 'remove favorite' : 'премахни от любими'}</button> :
+                                <button onClick={addFavorite}>{lang === 'en' ? 'favorite' : 'любими'}</button>
                         }
                         {
-                            role === 'admin' ? <button type="submit" onClick={deleteBook}>{lang === 'en' ? 'delete' : 'изтрий'}</button> : null
+                            role === 'admin' ? <button onClick={deleteBook}>{lang === 'en' ? 'delete' : 'изтрий'}</button> : null
                         }
                         {
-                            role === 'admin' ? <Link to={`/editBook/${url}`} ><button type="submit">{lang === 'en' ? 'edit book' : 'промени книга'}</button></Link> : null
+                            role === 'admin' ? <Link to={`/editBook/${url}`} ><button>{lang === 'en' ? 'edit book' : 'промени книга'}</button></Link> : null
+                        }
+                        {
+                            role === 'user' ?
+                                <Fragment>
+                                    {
+                                        state.inCart ?
+                                            <button onClick={removeCart}>{lang === 'en' ? 'Remove Cart' : 'Премахни'}</button>
+                                            : <button onClick={addCart}>{lang === 'en' ? 'Add Cart' : 'Добави'}</button>
+                                    }
+                                </Fragment>
+                                : null
                         }
                     </div> : null
                 }
             </div>
             {logged ?
                 <div>
-                    <AddComment bookId={_id} />
+                    <AddComment bookId={bookId} />
                 </div> :
                 <div class={styles['not-logged']}>
                     <Link to="/login">{lang === 'en' ? 'Log in to comment' : 'Влез за коментар'}</Link>

@@ -90,6 +90,34 @@ export const servises = {
             }).then(res => res.json())
             .catch(err => console.log(err));
     },
+    putCart: (body, userId) => {
+        fetch(`//localhost:9999/api/user/addCart/${userId}`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(body),
+                credentials: 'include'
+            }).then(res => res.json())
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+    },
+    getCart: (cart, setBooks) => {
+        axios.get('//localhost:9999/api/book')
+            .then(res => {
+                let booksInCart = [];
+                res.data.forEach(book => {
+                    cart.forEach(bookInCart => {
+                        if (book._id === bookInCart) {
+                            booksInCart.push(book);
+                        }
+                    })
+                })
+                setBooks(booksInCart);
+            })
+            .catch((myError) => console.log('failed to load'));
+    },
     putFavoriteBook: (body, userId) => {
         fetch(`//localhost:9999/api/user/${userId}`,
             {
@@ -242,7 +270,6 @@ export const servises = {
             .catch(err => console.log(err));
     },
     deleteSuggestedBook: (id, rendering) => {
-        console.log(id)
         axios.delete(`//localhost:9999/api/suggestedBook/${id}`,
             {
                 withCredentials: true,
@@ -255,7 +282,7 @@ export const servises = {
             .catch(err => console.log(err));
     },
     postBook: (body, rendering, redirect) => {
-        return fetch(`//localhost:9999/api/book`,
+        fetch(`//localhost:9999/api/book`,
             {
                 method: 'POST',
                 headers: {
@@ -282,8 +309,7 @@ export const servises = {
             }).then(res => res.json())
             .then(redirect())
             .catch(err => console.log(err));
-    }
-    ,
+    },
     deleteBook: (id, redirect) => {
         const params = {
             id: id

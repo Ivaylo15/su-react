@@ -12,7 +12,6 @@ const Aside = (props) => {
 
     useEffect(() => {
         servises.getAllUsers(setUsers);
-        // console.log('am i fucked')
     }, [ren]);
 
     return (

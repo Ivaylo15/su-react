@@ -10,12 +10,14 @@ const Navigation = (props) => {
     const { logged, lang, setingLang, user, ren, rendering } = useContext(UserContext);
     const [suggestedBooks, setSuggestedBooks] = useState([]);
     const [genres, setGenres] = useState([]);
+    //changing state so the buttons can change without changing the rest
     const [butRen, setButRen] = useState(0);
     const [searchValue, setSearcValue] = useState('');
 
     const genresList = ['fantasy', 'sci-fi', 'historical', 'romance', 'mystery', 'adventure', 'horror', 'dystopian', 'thriller'];
 
-    const { role } = user;
+    const { role, cart, favoriteBooks } = user;
+    console.log(cart)
 
     useEffect(() => {
         servises.getSuggestedBooks(setSuggestedBooks);
@@ -43,15 +45,16 @@ const Navigation = (props) => {
 
     const handleSearchChange = event => {
         setSearcValue(event.target.value);
-    }
+    };
+
+    const handleClick = e => {
+        rendering();
+    };
+
     return (
         <Fragment>
             <nav className={styles.Navigation}>
                 <ul>
-                    <Link to="/">
-                        {/* <img src="white-origami-bird.png" alt="origami" /> */}
-                        {/* <img className={styles["main-image"]} src="https://images.pexels.com/photos/1005324/literature-book-open-pages-1005324.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="book" /> */}
-                    </Link>
                     <Link to="/books" className={styles.listItem}>{lang === 'en' ? 'Books' : 'Книги'}</Link>
                     {!logged ?
                         <Fragment>
@@ -77,7 +80,14 @@ const Navigation = (props) => {
                                     </Fragment>
                                     : <Link to="/suggestBook" className={styles.listItem}>{lang === 'en' ? 'Suggest Book' : 'Предложи Книга'}</Link>
                             }
-                            <Link to="/favoriteBooks" className={styles.listItem}>{lang === 'en' ? 'Favorite' : 'Любими'}</Link>
+                            <Link to="/favoriteBooks" className={styles.listItem}>{lang === 'en' ? 'Favorite' : 'Любими'}{favoriteBooks !== undefined && favoriteBooks.length > 0 ?
+                                <span className={styles["sugg-book-count"]}>
+                                    {favoriteBooks.length}
+                                </span> : null}</Link>
+                            <Link to="/cart" className={styles.listItem}>{lang === 'en' ? 'Cart' : 'Количка'} {cart !== undefined && cart.length > 0 ?
+                                <span className={styles["sugg-book-count"]}>
+                                    {cart.length}
+                                </span> : null}</Link>
                             <Link to="/logout" className={styles.listItem}>{lang === 'en' ? 'Logout' : 'Изход'}</Link>
                         </Fragment>
                     }
@@ -89,7 +99,7 @@ const Navigation = (props) => {
                             </div>
                             <div className={styles.searchButton}>
                                 <Link to={{ pathname: "/search", searchValue: searchValue, genres: genres }} >
-                                    <button type="submit" onClick={rendering} ><img alt="search" src="https://img.icons8.com/material-sharp/24/000000/search.png" /></button>
+                                    <button onClick={handleClick} ><img alt="search" src="https://img.icons8.com/material-sharp/24/000000/search.png" /></button>
                                 </Link>
                             </div>
                         </form>
