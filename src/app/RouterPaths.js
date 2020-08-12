@@ -28,6 +28,8 @@ import AllComments from '../profile/allComments/AllComments';
 import SuggestBook from '../books/suggestBook/suggestBook/SuggestBook';
 import ViewSuggestedBooks from '../books/suggestBook/viewSuggestedBooks/ViewSuggestedBooks';
 import Cart from '../books/cart/Cart';
+import FinishOrder from '../books/cart/finishOreder/FinishOrder';
+import UserOrders from '../books/cart/userOrders/UserOrders';
 
 
 
@@ -50,7 +52,8 @@ const RouterPaths = (props) => {
             <Route path="/logout" render={(props) => logged === true ? <Logout {...props} /> : <ErrorPage />} />
             <Route path="/books" component={Books} />
             <Route path="/details/:id" component={Deatils} />
-            <Route path="/profile" render={() => role !== undefined ? <Profile /> : <ErrorPage />} />
+            <Route path="/profile" render={(props) => role !== undefined ? <Profile {...props}/> : <ErrorPage />} />
+            <Route path="/userOrders" render={(props) => role !== undefined ? <UserOrders {...props}/> : <ErrorPage />} />
             <Route path="/allComments/:id" component={AllComments} />
             <Route path="/addBook" render={(props) => role === 'admin' ? <AddBook {...props} /> : <ErrorPage />} />
             <Route path="/editBook/:id" render={(props) => role === 'admin' ? <EditBook {...props} /> : <ErrorPage />} />
@@ -59,6 +62,7 @@ const RouterPaths = (props) => {
             <Route path="/user/:id" component={SpecificUser} />
             <Route path="/favoriteBooks" render={(props) => role !== undefined ? <FavoriteBooks {...props} /> : <ErrorPage />} />
             <Route path="/cart" render={(props) => role === 'user' ? <Cart {...props} /> : <ErrorPage />} />
+            <Route path="/finishOrder" render={(props) => role === 'user' ? <FinishOrder {...props} /> : <ErrorPage />} />
             <Route path="/genres/:type" component={GenresView} />
             <Route path="/author/:type" component={AuthorsView} />
             <Route path="/publisher/:type" component={PublishersView} />

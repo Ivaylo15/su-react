@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './cartItems.module.css';
 import { Link } from 'react-router-dom';
 
-const CartItems = ({ book, settingPrice, removeItem }) => {
+const CartItems = ({ book, settingPrice, deleteItem }) => {
     const { _id, title, author, image, price } = book
     const [amount, setAmount] = useState(1);
     const [itemPrice, setItemPrice] = useState(price);
@@ -18,15 +18,14 @@ const CartItems = ({ book, settingPrice, removeItem }) => {
             settingPrice(parseFloat(price))
         }
         setItemPrice(calPrice);
-        console.log('yo')
     }, [amount, price]);
 
     const handelChange = e => {
         setAmount(e.target.value)
     };
 
-    const handelRemoveItem = () => {
-        removeItem(_id);
+    const handeldeleteItem = () => {
+        deleteItem(_id);
     }
 
 
@@ -54,7 +53,7 @@ const CartItems = ({ book, settingPrice, removeItem }) => {
                 {itemPrice.toFixed(2)}лв
             </div>
             <div className={styles.remove}>
-                <button onClick={handelRemoveItem}>x</button>
+                <button onClick={handeldeleteItem}>x</button>
             </div>
         </div>
     )

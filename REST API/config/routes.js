@@ -5,6 +5,7 @@ const user = require('../routes/user');
 const book = require('../routes/book');
 const suggestedBook = require('../routes/suggestedBook');
 const comment = require('../routes/comment');
+const order = require('../routes/order');
 
 module.exports = (app) => {
 
@@ -24,7 +25,9 @@ module.exports = (app) => {
 
     app.use('/api/suggestedBook', suggestedBook);
 
-    app.use('/api/comment', comment)
+    app.use('/api/order', order);
+
+    app.use('/api/comment', comment);
 
     app.use('*', (req, res, next) => res.send('<h1> Something went wrong. Try again. :thumbsup: </h1>'))
 };

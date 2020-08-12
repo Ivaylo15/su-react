@@ -45,6 +45,11 @@ const userSchema = new Schema({
         ref: "Book"
     }],
 
+    order: [{
+        type: ObjectId,
+        ref: "Order"
+    }],
+
     favoriteBooks: [{
         type: ObjectId,
         ref: "Book"

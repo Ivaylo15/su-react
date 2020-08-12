@@ -28,6 +28,7 @@ const Profile = () => {
                     {comments.length}
                 </p>
             </div>
+            <div><Link to="userOrders">My Orders</Link></div>
             <div className={styles["profile-comments"]}>
                 <h2>3 of your recent comments</h2>
                 {comments.length > 3 ?

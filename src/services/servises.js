@@ -281,6 +281,33 @@ export const servises = {
             })
             .catch(err => console.log(err));
     },
+    getUserOrders: (setOrders, userId) => {
+        console.log('yo')
+        axios.get(`//localhost:9999/api/order/${userId}`)
+            .then(res => {
+                setOrders(res.data);
+                return setOrders;
+            })
+            .catch((myError) => console.log('failed to load'));
+    },
+    postOrder: (body, rendering, redirect) => {
+        fetch(`//localhost:9999/api/order`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(body),
+                credentials: 'include'
+            }).then(res => res.json())
+            .then(res => {
+                rendering();
+                redirect();
+            })
+            .catch(err => {
+                console.log(err)
+            });
+    },
     postBook: (body, rendering, redirect) => {
         fetch(`//localhost:9999/api/book`,
             {

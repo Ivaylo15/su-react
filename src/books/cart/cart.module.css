@@ -29,13 +29,16 @@
 }
 
 .check-out{
-    background: rgb(230, 45, 101);
     margin: 1rem;
     padding: 1rem;
     width: 30%;
     margin-left: auto;
     display: flex;
     justify-content: space-between;
+}
+
+.check-out a{
+    text-decoration: none;
 }
 
 .check-out span{
