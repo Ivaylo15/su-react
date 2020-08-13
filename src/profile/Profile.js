@@ -15,6 +15,7 @@ const Profile = () => {
         servises.getUserComment(setComments, _id);
     }, [_id, ren]);
 
+
     return (
         <div className={styles.Profile}>
             <img className={styles["prof-img"]} src="https://thumbs.dreamstime.com/z/default-avatar-profile-icon-vector-user-image-179582665.jpg" alt="profile-icon" />
@@ -27,8 +28,8 @@ const Profile = () => {
                     <span>Comments: </span>
                     {comments.length}
                 </p>
+                <div><Link to="userOrders">My Orders</Link></div>
             </div>
-            <div><Link to="userOrders">My Orders</Link></div>
             <div className={styles["profile-comments"]}>
                 <h2>3 of your recent comments</h2>
                 {comments.length > 3 ?

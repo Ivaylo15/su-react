@@ -30,6 +30,7 @@ import ViewSuggestedBooks from '../books/suggestBook/viewSuggestedBooks/ViewSugg
 import Cart from '../books/cart/Cart';
 import FinishOrder from '../books/cart/finishOreder/FinishOrder';
 import UserOrders from '../books/cart/userOrders/UserOrders';
+import AdminOrderView from '../books/cart/adminOrderView/AdminOrderView';
 
 
 
@@ -62,6 +63,7 @@ const RouterPaths = (props) => {
             <Route path="/user/:id" component={SpecificUser} />
             <Route path="/favoriteBooks" render={(props) => role !== undefined ? <FavoriteBooks {...props} /> : <ErrorPage />} />
             <Route path="/cart" render={(props) => role === 'user' ? <Cart {...props} /> : <ErrorPage />} />
+            <Route path="/adminOrderView" render={(props) => role === 'admin' ? <AdminOrderView {...props} /> : <ErrorPage />} />
             <Route path="/finishOrder" render={(props) => role === 'user' ? <FinishOrder {...props} /> : <ErrorPage />} />
             <Route path="/genres/:type" component={GenresView} />
             <Route path="/author/:type" component={AuthorsView} />

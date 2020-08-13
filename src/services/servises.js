@@ -130,6 +130,28 @@ export const servises = {
             }).then(res => res.json())
             .catch(err => console.log(err));
     },
+    getAllOrders: (setOrders) =>{
+        axios.get('//localhost:9999/api/book')
+        .then(res => {
+            setOrders(res.data);
+        })
+        .catch((myError) => console.log('failed to load'));
+    },
+    getOrderdBooks: (products, setBooks) => {
+        axios.get('//localhost:9999/api/book')
+            .then(res => {
+                let newOrderdBooks = [];
+                res.data.forEach(book => {
+                    products.forEach(product => {
+                        if (book._id === product) {
+                            newOrderdBooks.push(book);
+                        }
+                    })
+                })
+                setBooks(newOrderdBooks);
+            })
+            .catch((myError) => console.log('failed to load'));
+    },
     getFavoriteBooks: (favoriteBooks, setBooks) => {
         axios.get('//localhost:9999/api/book')
             .then(res => {

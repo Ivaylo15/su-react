@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 const BookComment = ({ wholeComment }) => {
     const { user, rendering } = useContext(UserContext);
     const [book, setBook] = useState({});
-    // const [reComment, setReComment] = useState({});
 
     const { _id, comment, book: bookId, author } = wholeComment;
 
@@ -23,16 +22,19 @@ const BookComment = ({ wholeComment }) => {
     const { image } = book;
     const removeComment = () => {
         console.log(_id)
-        const params = {
+        const body = {
             id: _id,
             author: author
         }
-        return axios.delete(`//localhost:9999/api/comment/${_id}`, params,
+        fetch(`//localhost:9999/api/comment/${_id}`,
             {
-                withCredentials: true,
+                method: 'DELETE',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(body),
                 credentials: 'include'
-            }
-        )
+            }).then(res => res.json())
             .then(res => {
                 console.log(res);
                 rendering();

@@ -77,13 +77,18 @@ const Navigation = (props) => {
                                                 </span>
                                                 : null}
                                         </Link>
+                                        <Link to="/adminOrderView" className={styles.listItem}>{lang === 'en' ? 'Orders' : 'Поръчки'}</Link>
                                     </Fragment>
-                                    : <Link to="/suggestBook" className={styles.listItem}>{lang === 'en' ? 'Suggest Book' : 'Предложи Книга'}</Link>
+                                    :
+                                    <Fragment>
+                                        <Link to="/suggestBook" className={styles.listItem}>{lang === 'en' ? 'Suggest Book' : 'Предложи Книга'}</Link>
+                                        <Link to="/favoriteBooks" className={styles.listItem}>{lang === 'en' ? 'Favorite' : 'Любими'}{favoriteBooks !== undefined && favoriteBooks.length > 0 ?
+                                            <span className={styles["sugg-book-count"]}>
+                                                {favoriteBooks.length}
+                                            </span> : null}
+                                        </Link>
+                                    </Fragment>
                             }
-                            <Link to="/favoriteBooks" className={styles.listItem}>{lang === 'en' ? 'Favorite' : 'Любими'}{favoriteBooks !== undefined && favoriteBooks.length > 0 ?
-                                <span className={styles["sugg-book-count"]}>
-                                    {favoriteBooks.length}
-                                </span> : null}</Link>
                             <Link to="/cart" className={styles.listItem}>{lang === 'en' ? 'Cart' : 'Количка'} {cart !== undefined && cart.length > 0 ?
                                 <span className={styles["sugg-book-count"]}>
                                     {cart.length}

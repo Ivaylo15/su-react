@@ -50,18 +50,15 @@ module.exports = {
     },
 
     delete: (req, res, next) => {
-        const { id, author } = req.params;
+        const { id } = req.params;
+        const { author } = req.body;
         Comment.deleteOne({ _id: id })
-            // .then((removedComment => {
-            //     let newComments = comments.splice(comments.indexOf(id));
-            //     return Promise.all([
-            //         User.updateOne({ _id: author }, { comments: newComments})
-            //     ])
-            // }))
+            .then((removedComment => {
+                return Promise.all([
+                    User.updateOne({ _id: author }, { $pull: { comments: id } })
+                ])
+            }))
             .then((removedComment) => {
-                // const User = User.findOne({ _id: author });
-                // let newComments = User.comments.splice(comments.indexOf(id));
-                // User.updateOne({ _id: author }, { comments: newComments });
                 res.send(removedComment);
             })
             .catch(next);

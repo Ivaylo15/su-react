@@ -1,6 +1,7 @@
-.cart{
+.cart-container{
     min-height: 90vh;
 }
+
 
 .cart-layout{
     display: flex;

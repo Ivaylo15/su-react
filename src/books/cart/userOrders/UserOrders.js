@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { servises } from '../../../services/servises';
+import styles from './userOrders.module.css';
 import { UserContext } from '../../../ContextWrapper';
+import UserOrder from './userOrder/userOrder';
 
 const UserOrders = () => {
     const { user, lang } = useContext(UserContext);
@@ -9,10 +11,10 @@ const UserOrders = () => {
     useEffect(() => {
         servises.getUserOrders(setOrders, user._id);
     }, [user._id]);
-    console.log(orders)
     return (
-        <div>
-            yo
+        <div className={styles.orders}>
+            <h2>Orders</h2>
+            {orders.map(order => <UserOrder key={order._id} order={order}/>)}
         </div>
     );
 };
