@@ -50,7 +50,7 @@ const CartItems = ({ book, settingPrice, deleteItem }) => {
                 <button className={styles['right-button']} onClick={() => { setAmount(amount => amount + 1) }}>+</button>
             </div>
             <div className={styles.price}>
-                {itemPrice.toFixed(2)}лв
+                {itemPrice.toFixed(2)}лв.
             </div>
             <div className={styles.remove}>
                 <button onClick={handeldeleteItem}>x</button>

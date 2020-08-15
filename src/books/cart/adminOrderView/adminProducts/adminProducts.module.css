@@ -9,6 +9,11 @@
     border: black 1px solid;
 }
 
+.order a{
+    text-decoration: none;
+    color: #000;
+}
+
 .tit-stat{
     display: flex;
     justify-content: space-between;
@@ -20,30 +25,3 @@
     color: rgb(149, 240, 12);
 }
 
-.pro-price{
-    display: flex;
-    justify-content: space-between;
-}
-
-.product{
-    display: flex;
-}
-
-.product img{
-    height: 90px;
-    width: 50px;
-}
-
-.product h4{
-    padding: 0.5rem;
-}
-
-.product a{
-    text-decoration: none;
-    color: black;
-}
-
-.price{
-    font-size: 20px;
-    margin-top: auto;
-}

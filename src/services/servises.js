@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { parseCookeis } from '../util/cookie-parse';
 
-
 export const servises = {
     // postPosts: (data, redirect) => {
     //     const body = {
@@ -130,12 +129,19 @@ export const servises = {
             }).then(res => res.json())
             .catch(err => console.log(err));
     },
-    getAllOrders: (setOrders) =>{
-        axios.get('//localhost:9999/api/book')
-        .then(res => {
-            setOrders(res.data);
-        })
-        .catch((myError) => console.log('failed to load'));
+    getAllOrders: (setOrders) => {
+        axios.get('//localhost:9999/api/order')
+            .then(res => {
+                setOrders(res.data);
+            })
+            .catch((myError) => console.log('failed to load'));
+    },
+    getAllOrdersHeader: (setOrders) => {
+        axios.get('//localhost:9999/api/order')
+            .then(res => {
+                setOrders(res.data.filter(order => order.status !== 'delivered'));
+            })
+            .catch((myError) => console.log('failed to load'));
     },
     getOrderdBooks: (products, setBooks) => {
         axios.get('//localhost:9999/api/book')
@@ -305,10 +311,17 @@ export const servises = {
     },
     getUserOrders: (setOrders, userId) => {
         console.log('yo')
-        axios.get(`//localhost:9999/api/order/${userId}`)
+        axios.get(`//localhost:9999/api/order/userOrder/${userId}`)
             .then(res => {
                 setOrders(res.data);
                 return setOrders;
+            })
+            .catch((myError) => console.log('failed to load'));
+    },
+    getSpecOrders: (setOrder, orderId) => {
+        axios.get(`//localhost:9999/api/order/specOrder/${orderId}`)
+            .then(res => {
+                setOrder(res.data);
             })
             .catch((myError) => console.log('failed to load'));
     },
@@ -329,6 +342,21 @@ export const servises = {
             .catch(err => {
                 console.log(err)
             });
+    },
+    changeOrderStatus: (body, orderId, rendering) => {
+        fetch(`//localhost:9999/api/order/editStatus/${orderId}`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(body),
+                credentials: 'include'
+            }).then(res => res.json())
+            .then(res => {
+                rendering();
+            })
+            .catch(err => console.log(err));
     },
     postBook: (body, rendering, redirect) => {
         fetch(`//localhost:9999/api/book`,
@@ -389,8 +417,23 @@ export const servises = {
         //     })
         //     .then(redirect())
         //     .catch(err => console.log(err))
-    }
-    ,
+    },
+    editUserInfo: (body, userId, rendering, redirect) => {
+        fetch(`//localhost:9999/api/user/editUserInfo/${userId}`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(body),
+                credentials: 'include'
+            }).then(res => res.json())
+            .then(res => {
+                rendering()
+                redirect()
+            })
+            .catch(err => console.log(err));
+    },
     register: (body, rendering, redirect) => {
         return axios.post('//localhost:9999/api/user/register', body)
             .then(res => {

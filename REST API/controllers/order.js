@@ -1,14 +1,23 @@
 const User = require('../models/User');
-const Book = require('../models/Book');
 const Order = require('../models/Order');
 
 module.exports = {
-    get: (req, res, next) => {
-
-    },
-    
-    getUserOrders: (req, res, next) => {
+    getAll: (req, res, next) => {
         Order.find()
+            .then((orders) => res.send(orders))
+            .catch(next);
+    },
+
+    getSpecOrder: (req, res, next) => {
+        const orderId = req.params.id;
+        Order.findOne({ _id: orderId })
+            .then((order) => res.send(order))
+            .catch(next);
+    },
+
+    getUserOrders: (req, res, next) => {
+        const userId = req.params.id;
+        Order.find({ user: userId })
             .then((orders) => res.send(orders))
             .catch(next);
     },
@@ -17,11 +26,11 @@ module.exports = {
         const { products, price, payment } = req.body;
         const { _id } = req.user;
 
-        Order.create({status: 'New Order', user: _id, products, price, payment})
+        Order.create({ status: 'New Order', user: _id, products, price, payment })
             .then((createdOrder) => {
                 return Promise.all([
-                    User.updateOne({ _id }, {$push: {order: createdOrder}}),
-                    User.updateOne({ _id }, {$set: {cart: []}}),
+                    User.updateOne({ _id }, { $push: { order: createdOrder } }),
+                    User.updateOne({ _id }, { $set: { cart: [] } }),
                 ]);
             })
             .then(([modifiedObj, orderObj]) => {
@@ -29,4 +38,12 @@ module.exports = {
             })
             .catch(next);
     },
+
+    editStatus: (req, res, next) => {
+        const id = req.params.id;
+        const { status } = req.body;
+        Order.updateOne({ _id: id }, { status: status })
+            .then((updatedOrder) => res.send(updatedOrder))
+            .catch(next);
+    }
 }

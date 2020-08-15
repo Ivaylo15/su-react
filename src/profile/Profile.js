@@ -20,6 +20,7 @@ const Profile = () => {
         <div className={styles.Profile}>
             <img className={styles["prof-img"]} src="https://thumbs.dreamstime.com/z/default-avatar-profile-icon-vector-user-image-179582665.jpg" alt="profile-icon" />
             <div className={styles["personal-info"]}>
+                <div><Link to={`editUserInfo/${_id}`}>Change Personal Info</Link></div>
                 <p>
                     <span>Email: </span>
                     {username}

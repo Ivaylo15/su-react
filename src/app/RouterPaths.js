@@ -31,6 +31,8 @@ import Cart from '../books/cart/Cart';
 import FinishOrder from '../books/cart/finishOreder/FinishOrder';
 import UserOrders from '../books/cart/userOrders/UserOrders';
 import AdminOrderView from '../books/cart/adminOrderView/AdminOrderView';
+import AdminSingleOrder from '../books/cart/adminOrderView/adminProducts/adminSingleOrder/AdminSingleOrder';
+import EditUser from '../forms/editUser/EditUser';
 
 
 
@@ -51,9 +53,10 @@ const RouterPaths = (props) => {
             <Route path="/register" render={(props) => logged === false ? <RegisterForm {...props} /> : <ErrorPage />} />
             <Route path="/login" render={(props) => logged === false ? <LoginForm {...props} /> : <ErrorPage />} />
             <Route path="/logout" render={(props) => logged === true ? <Logout {...props} /> : <ErrorPage />} />
+            <Route path="/profile" render={(props) => role !== undefined ? <Profile {...props}/> : <ErrorPage />} />
+            <Route path="/editUserInfo/:id" render={(props) => role === 'user' ? <EditUser {...props} /> : <ErrorPage />} />
             <Route path="/books" component={Books} />
             <Route path="/details/:id" component={Deatils} />
-            <Route path="/profile" render={(props) => role !== undefined ? <Profile {...props}/> : <ErrorPage />} />
             <Route path="/userOrders" render={(props) => role !== undefined ? <UserOrders {...props}/> : <ErrorPage />} />
             <Route path="/allComments/:id" component={AllComments} />
             <Route path="/addBook" render={(props) => role === 'admin' ? <AddBook {...props} /> : <ErrorPage />} />
@@ -64,6 +67,7 @@ const RouterPaths = (props) => {
             <Route path="/favoriteBooks" render={(props) => role !== undefined ? <FavoriteBooks {...props} /> : <ErrorPage />} />
             <Route path="/cart" render={(props) => role === 'user' ? <Cart {...props} /> : <ErrorPage />} />
             <Route path="/adminOrderView" render={(props) => role === 'admin' ? <AdminOrderView {...props} /> : <ErrorPage />} />
+            <Route path="/specOrder" render={(props) => role === 'admin' ? <AdminSingleOrder {...props} /> : <ErrorPage />} />
             <Route path="/finishOrder" render={(props) => role === 'user' ? <FinishOrder {...props} /> : <ErrorPage />} />
             <Route path="/genres/:type" component={GenresView} />
             <Route path="/author/:type" component={AuthorsView} />

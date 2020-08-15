@@ -1,0 +1,35 @@
+.Forms {
+    width: 83%;
+    height: 100vh;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+}
+
+
+.form-control {
+    width: 30%;
+    margin: 0 auto;
+    padding: 1%;
+    text-align: center;
+}
+
+.form-control label{
+    float: left;
+    width: 30%;
+    text-align: right;
+}
+
+.form-control input {
+    text-align: center;
+    border-radius: 0.3em;
+    border: 1px solid #234465;
+    padding: 1%;
+    width: 50%;
+    color: #234465;
+}
+
+.form-control button {
+    width: auto;
+    padding: 2%;
+}

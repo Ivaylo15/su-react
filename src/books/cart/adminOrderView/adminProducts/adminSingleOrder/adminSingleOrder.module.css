@@ -1,0 +1,74 @@
+.order{
+    min-height: 90vh;
+}
+
+.order-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    margin: 1rem;
+}
+
+.prod-stat-price{
+    display: flex;
+    justify-content: space-between;
+}
+
+.status-price{
+    display: flex;
+    flex-direction: column;
+}
+
+.product{
+    display: flex;
+
+}
+
+.product img{
+    height: 150px;
+    width: auto;
+}
+
+.tit-amo{
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product a{
+    text-decoration: none;
+    color: black;
+}
+
+.price{
+    font-size: 20px;
+    margin-top: auto;
+
+}
+
+.status{
+    font-size: 20px;
+    background: rgb(172, 186, 233);
+    color: green;
+    border: none;
+}
+
+.client{
+    margin-top: 1rem;
+    font-size: 17px;
+}
+
+.client span{
+    font-weight: bold;
+}
+
+.addres{
+    margin-top: 1rem;
+    font-size: 17px;
+}
+
+.addres span{
+    font-weight: bold;
+}

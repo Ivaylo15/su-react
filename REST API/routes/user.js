@@ -12,6 +12,7 @@ router.post('/logout', user.post.logout);
 
 router.put('/:id', user.put);
 router.put('/addCart/:id', user.putCart);
+router.put('/editUserInfo/:id', user.editUserInfo);
 
 router.delete('/:id', user.delete);
 

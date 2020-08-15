@@ -5,14 +5,16 @@ import { UserContext } from '../../../ContextWrapper';
 
 
 const FinishOrder = (props) => {
-    const { lang, rendering } = useContext(UserContext);
+    const { lang, user, rendering } = useContext(UserContext);
     const { totalPrice, books } = props.location;
+    // const { totalPrice, books } = props;
     const [paymentType, setPaymantType] = useState('');
+    const { city, addres } = user;
 
     const onChangeValue = e => {
         setPaymantType(e.target.value)
     }
-    console.log(paymentType);
+
     const handleSubmit = e => {
         const order = {
             products: books,
@@ -25,8 +27,8 @@ const FinishOrder = (props) => {
     return (
         <div className={styles['finish-order']}>
             <div className={styles['addres']}>
-                <div className={styles['city']}>Blagoevgrad</div>
-                <div className={styles['city-addres']}>жк.Еленово бл.38 вх.Б ап.15</div>
+                <div className={styles['city']}>{city}</div>
+                <div className={styles['city-addres']}>{addres}</div>
             </div>
             <div className={styles['check-out']}>
                 <div className={styles['radio-container']} onChange={onChangeValue}>

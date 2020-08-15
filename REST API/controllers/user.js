@@ -19,8 +19,8 @@ module.exports = {
 
     post: {
         register: (req, res, next) => {
-            const { username, firstname, lastname, password } = req.body;
-            models.User.create({ username, firstname, lastname, password })
+            const { username, firstname, city, addres, lastname, password } = req.body;
+            models.User.create({ username, firstname, lastname, city, addres, password })
                 .then((createdUser) => res.send(createdUser))
                 .catch(next)
         },
@@ -70,6 +70,14 @@ module.exports = {
         models.User.updateOne({ _id: id }, { favoriteBooks: newFavoriteBooks })
             .then((updatedUser) => res.send(updatedUser))
             .then(res => console.log(res))
+            .catch(next);
+    },
+
+    editUserInfo: (req, res, next) => {
+        const id = req.params.id;
+        const { username, firstname, lastname, city, addres} = req.body;
+        models.User.updateOne({ _id: id }, { username, firstname, lastname, city, addres })
+            .then((updatedBook) => res.send(updatedBook))
             .catch(next);
     },
 

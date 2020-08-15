@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import styles from './adminOrdeerView.module.css';
 import { servises } from '../../../services/servises';
+import AdminProducts from './adminProducts/AdminProducts';
 
 const AdminOrderView = () => {
     const [orders, setOrders] = useState([]);
@@ -11,8 +13,9 @@ const AdminOrderView = () => {
     console.log(orders);
 
     return(
-        <div>
-            Admin View
+        <div className={styles.orders}>
+            <h2>Поръчки</h2>
+            {orders.map(order => <AdminProducts key={order._id} order={order} />)}
         </div>
     )
 };

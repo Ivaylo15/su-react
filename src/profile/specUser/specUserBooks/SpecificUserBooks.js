@@ -16,6 +16,6 @@ const SpecificUserBooks = ({ favoriteBooks }) => {
             {books !== undefined ? books.sort((a, b) => { if (a.title < b.title) { return -1 } }).map(book => <SpecificUserBook key={book._id} book={book} />) : null}
         </div>
     )
-}
+};
 
 export default SpecificUserBooks;
