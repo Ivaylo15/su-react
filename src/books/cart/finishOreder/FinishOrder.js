@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styles from './finishOrder.module.css'
 import { servises } from '../../../services/servises';
 import { UserContext } from '../../../ContextWrapper';
@@ -6,18 +6,39 @@ import { UserContext } from '../../../ContextWrapper';
 
 const FinishOrder = (props) => {
     const { lang, user, rendering } = useContext(UserContext);
-    const { totalPrice, books } = props.location;
+    // const { totalPrice, books } = props.location;
     // const { totalPrice, books } = props;
+    const [productsInCart, setProductsInCart] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0);
     const [paymentType, setPaymantType] = useState('');
-    const { city, addres } = user;
+    const { city, addres, cartIt } = user;
 
+
+    useEffect(() => {
+        servises.getCartIt2(cartIt, setProductsInCart);
+    }, [cartIt]);
+
+    useEffect(() => {
+        const settingPrice = () => {
+            let calPrice = 0;
+            productsInCart.forEach(product => {
+                console.log(product)
+                calPrice += parseFloat(product.price);
+            })
+            setTotalPrice(calPrice);
+        };
+
+        settingPrice();
+    }, [productsInCart]);
+
+    console.log(productsInCart)
     const onChangeValue = e => {
         setPaymantType(e.target.value)
     }
 
     const handleSubmit = e => {
         const order = {
-            products: books,
+            orderedItems: productsInCart,
             price: totalPrice,
             payment: paymentType,
         }
@@ -32,22 +53,22 @@ const FinishOrder = (props) => {
             </div>
             <div className={styles['check-out']}>
                 <div className={styles['radio-container']} onChange={onChangeValue}>
-                    <label className={styles["container"]}>Наложен Платеж
+                    <label className={styles["container"]}>{lang === 'en' ? 'Cash' : 'Наложен Платеж'}
                     <input type="radio" name="radio" value="cash" />
                         <span className={styles["checkmark"]} name="radio"></span>
                     </label>
-                    <label className={styles["container"]}>Карта
+                    <label className={styles["container"]}>{lang === 'en' ? 'Card' : 'Карта'}
                     <input type="radio" name="radio" value="card" />
                         <span className={styles["checkmark"]} name="radio"></span>
                     </label>
-                    <label className={styles["container"]}>Банков Превод
+                    <label className={styles["container"]}>{lang === 'en' ? 'Transaction' : 'Банков Превод'}
                     <input type="radio" name="radio" value="transaction" />
                         <span className={styles["checkmark"]} name="radio"></span>
                     </label>
                 </div>
                 <div className={styles['finish']}>
-                    <div className={styles['price']}>{totalPrice}лв.</div>
-                    <button type="submit" onClick={handleSubmit}>Завърши</button>
+                    <div className={styles['price']}>{parseFloat(totalPrice).toFixed(2)}{lang === 'en' ? 'lv' : 'лв'}.</div>
+                    <button type="submit" onClick={handleSubmit}>{lang === 'en' ? 'Order' : 'Завърши'}</button>
                 </div>
             </div>
         </div>

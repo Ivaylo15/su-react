@@ -28,7 +28,8 @@ export const servises = {
                 body: JSON.stringify(body),
                 credentials: 'include'
             }).then(res => res.json())
-            .then(res => rendering());
+            .then(res => rendering())
+            .catch(err => console.log(err));
     },
     getComments: (dispatch, bookId) => {
         // return axios.get('//localhost:9999/api/comment')
@@ -117,6 +118,104 @@ export const servises = {
             })
             .catch((myError) => console.log('failed to load'));
     },
+    getCartIt: (userId, setProductsInCart) => {
+        axios.get(`//localhost:9999/api/orderItem/${userId}`)
+            .then(res => {
+                // let booksInCart = [];
+                // res.data.forEach(res => {
+                // cartIt.forEach(bookInCart => {
+                //     if (book._id === bookInCart) {
+                //         booksInCart.push(book);
+                //     }
+                // })
+                // console.log(res.product)
+                // })
+                setProductsInCart(res.data);
+            })
+            .catch((myError) => console.log('failed to load'));
+    },
+    getCartIt2: (cartIt, setProductsInCart) => {
+        console.log(cartIt)
+        axios.get(`//localhost:9999/api/orderItem/`)
+            .then(res => {
+                let prodInCart = [];
+                res.data.forEach(data => {
+                    cartIt.forEach(product => {
+                        if (data._id === product) {
+                            prodInCart.push(data);
+                        }
+                    })
+                })
+                setProductsInCart(prodInCart);
+            })
+            .catch((myError) => console.log('failed to load'));
+    },
+    postCartItem: (body, rendering) => {
+        fetch(`//localhost:9999/api/orderItem`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(body),
+                credentials: 'include'
+            }).then(res => res.json())
+            .then(res => {
+                console.log(res);
+                rendering();
+            })
+            .catch(err => {
+                console.log(err);
+                rendering();
+            });
+        // fetch(`//localhost:9999/api/orderItem`,
+        //     {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-type': 'application/json'
+        //         },
+        //         body: JSON.stringify(body),
+        //         credentials: 'include'
+        //     }).then(res => res.json())
+        //     .then(res => {
+        //         console.log('yo add')
+        //         console.log(res);
+        //         rendering()
+        //     })
+        //     .catch(err => console.log(err));
+    },
+    deleteCartItem: (orderItemId, body, rendering) => {
+        fetch(`//localhost:9999/api/orderItem/${orderItemId}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(body),
+                credentials: 'include'
+            }).then(res => res.json())
+            .then(res => {
+                console.log('yo delete')
+                console.log(res);
+                rendering()
+            })
+            .catch(err => console.log(err));
+    },
+    changeAmount: (body, orderItemId, render) => {
+        console.log(body)
+        console.log(orderItemId)
+        fetch(`//localhost:9999/api/orderItem/changeAmount/${orderItemId}`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(body),
+                credentials: 'include'
+            }).then(res => res.json())
+            // .then(render())
+            .catch(err => console.log(err));
+    },
     putFavoriteBook: (body, userId) => {
         fetch(`//localhost:9999/api/user/${userId}`,
             {
@@ -143,13 +242,29 @@ export const servises = {
             })
             .catch((myError) => console.log('failed to load'));
     },
+    // getOrderdBooks: (products, setBooks) => {
+    //     axios.get('//localhost:9999/api/book')
+    //         .then(res => {
+    //             let newOrderdBooks = [];
+    //             res.data.forEach(book => {
+    //                 products.forEach(product => {
+    //                     if (book._id === product) {
+    //                         newOrderdBooks.push(book);
+    //                     }
+    //                 })
+    //             })
+    //             setBooks(newOrderdBooks);
+    //         })
+    //         .catch((myError) => console.log('failed to load'));
+    // },
     getOrderdBooks: (products, setBooks) => {
+        console.log(products)
         axios.get('//localhost:9999/api/book')
             .then(res => {
                 let newOrderdBooks = [];
                 res.data.forEach(book => {
                     products.forEach(product => {
-                        if (book._id === product) {
+                        if (book._id === product.product) {
                             newOrderdBooks.push(book);
                         }
                     })

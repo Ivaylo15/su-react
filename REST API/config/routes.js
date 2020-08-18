@@ -6,6 +6,7 @@ const book = require('../routes/book');
 const suggestedBook = require('../routes/suggestedBook');
 const comment = require('../routes/comment');
 const order = require('../routes/order');
+const orderItem = require('../routes/orderItem');
 
 module.exports = (app) => {
 
@@ -19,13 +20,13 @@ module.exports = (app) => {
             .catch(() => res.status(401).send('HELLO!'))
     })
 
-    // app.use('/api/origami', router.origami);
-
     app.use('/api/book', book);
 
     app.use('/api/suggestedBook', suggestedBook);
 
     app.use('/api/order', order);
+
+    app.use('/api/orderItem', orderItem);
 
     app.use('/api/comment', comment);
 

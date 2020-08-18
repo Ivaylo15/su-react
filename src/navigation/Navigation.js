@@ -8,6 +8,7 @@ import { servises } from '../services/servises';
 
 const Navigation = (props) => {
     const { logged, lang, setingLang, user, ren, rendering } = useContext(UserContext);
+    // const [user, setUser] = useState({});
     const [suggestedBooks, setSuggestedBooks] = useState([]);
     const [orders, setOrders] = useState([]);
     const [genres, setGenres] = useState([]);
@@ -17,11 +18,13 @@ const Navigation = (props) => {
 
     const genresList = ['fantasy', 'sci-fi', 'historical', 'romance', 'mystery', 'adventure', 'horror', 'dystopian', 'thriller'];
 
-    const { role, cart, favoriteBooks } = user;
+    const { _id: userId, role, cartIt, favoriteBooks } = user;
+
 
     useEffect(() => {
+        // servises.getUser(setUser);
         servises.getSuggestedBooks(setSuggestedBooks);
-        servises.getAllOrdersHeader(setOrders)
+        servises.getAllOrdersHeader(setOrders);
     }, [ren]);
 
 
@@ -51,8 +54,8 @@ const Navigation = (props) => {
     const handleClick = e => {
         rendering();
     };
-
     console.log(butRen)
+
     return (
         <Fragment>
             <nav className={styles.Navigation}>
@@ -96,9 +99,9 @@ const Navigation = (props) => {
                                                 {favoriteBooks.length}
                                             </span> : null}
                                         </Link>
-                                        <Link to="/cart" className={styles.listItem}>{lang === 'en' ? 'Cart' : 'Количка'} {cart !== undefined && cart.length > 0 ?
+                                        <Link to="/cart" className={styles.listItem}>{lang === 'en' ? 'Cart' : 'Количка'} {cartIt !== undefined && cartIt.length > 0 ?
                                             <span className={styles["sugg-book-count"]}>
-                                                {cart.length}
+                                                {cartIt.length}
                                             </span> : null}
                                         </Link>
                                     </Fragment>

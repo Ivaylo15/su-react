@@ -18,11 +18,11 @@
 .status-price{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .product{
     display: flex;
-
 }
 
 .product img{
@@ -42,10 +42,13 @@
     color: black;
 }
 
-.price{
+.payment{
+    display: flex;
+    flex-direction: column;
     font-size: 20px;
-    margin-top: auto;
+}
 
+.price{
 }
 
 .status{

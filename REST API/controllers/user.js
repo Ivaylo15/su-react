@@ -84,7 +84,7 @@ module.exports = {
     putCart: (req, res, next) => {
         const id = req.params.id;
         const newCartBooks = req.body;
-        models.User.updateOne({ _id: id }, { cart: newCartBooks })
+        models.User.updateOne({ _id: id }, { cartIt: newCartBooks })
             .then((updatedUser) => res.send(updatedUser))
             .then(res => console.log(res))
             .catch(next);

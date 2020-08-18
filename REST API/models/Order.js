@@ -19,6 +19,11 @@ const orderSchema = new Schema({
         ref: "Book"
     }],
 
+    orderedItems: [{
+        type: ObjectId,
+        ref: "OrderItem"
+    }],
+
     price: {
         type: String,
         required: true

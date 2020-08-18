@@ -1,27 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styles from './cartItems.module.css';
 import { Link } from 'react-router-dom';
+import { servises } from '../../../services/servises';
+import { UserContext } from '../../../ContextWrapper';
 
-const CartItems = ({ book, settingPrice, deleteItem }) => {
-    const { _id, title, author, image, price } = book
-    const [amount, setAmount] = useState(1);
-    const [itemPrice, setItemPrice] = useState(price);
+const CartItems = ({ product, deleteItem }) => {
+    const { lang, rendering } = useContext(UserContext);
+    const { _id, product: productId, amount: firstAmount, price: totalPrice } = product;
+    const [book, setBook] = useState({});
+    const [amount, setAmount] = useState(firstAmount);
+    const { _id: bookId, title, author, image, price } = book;
+
+
 
     useEffect(() => {
-        let calPrice = parseFloat(price);
-        if (amount > 0) {
-            calPrice = parseFloat(price) * amount;
+        servises.getSpecificBook(setBook, productId);
+    }, [productId]);
+
+    useEffect(() => {
+        const handleAmount = () => {
+            console.log(amount)
+            console.log(parseFloat(price) * amount)
+            const body = {
+                amount: amount,
+                price: parseFloat(price) * amount
+            };
+            servises.changeAmount(body, _id);
         }
-        if (calPrice < itemPrice) {
-            settingPrice(-parseFloat(price));
-        } else {
-            settingPrice(parseFloat(price))
-        }
-        setItemPrice(calPrice);
-    }, [amount, price]);
+
+        handleAmount();
+    }, [amount, price, _id]);
 
     const handelChange = e => {
-        setAmount(e.target.value)
+        setAmount(e.target.value);
+        rendering();
+    };
+
+
+
+    const decAmount = () => {
+        setAmount(amount => amount - 1);
+        rendering();
+    };
+
+    const incAmount = () => {
+        setAmount(amount => amount + 1);
+        rendering();
     };
 
     const handeldeleteItem = () => {
@@ -37,7 +61,7 @@ const CartItems = ({ book, settingPrice, deleteItem }) => {
                     <img src={image} alt="book-cover" />
                 </div>
                 <div className={styles['cart-book-text']}>
-                    <Link to={`/details/${_id}`}><span>{title}</span></Link>
+                    <Link to={`/details/${bookId}`}><span>{title}</span></Link>
                     <span>{author}</span>
                 </div>
             </div>
@@ -45,12 +69,12 @@ const CartItems = ({ book, settingPrice, deleteItem }) => {
                 {price}лв
             </div>
             <div className={styles.amount}>
-                <button className={styles['left-button']} onClick={() => { setAmount(amount => amount - 1) }}>-</button>
+                <button className={styles['left-button']} onClick={decAmount}>-</button>
                 <input onChange={handelChange} value={amount}></input>
-                <button className={styles['right-button']} onClick={() => { setAmount(amount => amount + 1) }}>+</button>
+                <button className={styles['right-button']} onClick={incAmount}>+</button>
             </div>
             <div className={styles.price}>
-                {itemPrice.toFixed(2)}лв.
+                {parseFloat(totalPrice).toFixed(2)}{lang === 'en' ? 'lv' : 'лв'}.
             </div>
             <div className={styles.remove}>
                 <button onClick={handeldeleteItem}>x</button>

@@ -57,13 +57,15 @@ const reducer = (state, action) => {
 
 
 const Deatils = (props) => {
-    const { logged, lang, ren, rendering } = useContext(UserContext);
+    const { logged, lang, user, ren, rendering } = useContext(UserContext);
     const [state, dispatch] = useReducer(reducer, initialState);
     //triggering useEffect
     const [newScore, setNewScore] = useState('');
     let url = props.location.pathname.split('/')[2];
-    const { _id: userId, cart, favoriteBooks, role } = state.user;
+    const { _id: userId, cart, cartIt, favoriteBooks, role } = user;
     const { _id: bookId, title, image, author, publisher, description, price, genres, raiting } = state.book;
+    const [productsInCart, setProductsInCart] = useState([]);
+    const [productId, setProductId] = useState('');
 
     useEffect(() => {
         servises.getUserDispatch(dispatch);
@@ -83,7 +85,6 @@ const Deatils = (props) => {
                 favoriteBooks.forEach(userBook => {
                     if (userBook === bookId) {
                         dispatch({ type: 'isFavorite', payload: true });
-                        console.log('fav');
                     }
                 });
             };
@@ -92,41 +93,79 @@ const Deatils = (props) => {
     }, [bookId, favoriteBooks]);
 
     useEffect(() => {
+        servises.getCartIt2(cartIt, setProductsInCart);
+    }, [cartIt, ren]);
+
+    // useEffect(() => {
+    //     const isInCart = () => {
+    //         if (cart !== undefined) {
+    //             cart.forEach(userBook => {
+    //                 if (userBook === bookId) {
+    //                     dispatch({ type: 'isInCart', payload: true });
+    //                     console.log('cart');
+    //                 }
+    //             });
+    //         };
+    //     };
+    //     isInCart();
+    // }, [bookId, cart]);
+
+    useEffect(() => {
         const isInCart = () => {
-            if (cart !== undefined) {
-                cart.forEach(userBook => {
-                    if (userBook === bookId) {
+            if (productsInCart !== undefined) {
+                productsInCart.forEach(product => {
+                    if (product.product === bookId) {
+                        setProductId(product._id);
                         dispatch({ type: 'isInCart', payload: true });
-                        console.log('cart');
                     }
                 });
             };
         };
         isInCart();
-    }, [bookId, cart]);
+    }, [bookId, productsInCart]);
 
     useEffect(() => {
         dispatch({ type: 'userScore', payload: raiting, userId: userId });
-        console.log('getscore')
     }, [raiting, userId, newScore])
 
     useEffect(() => {
         dispatch({ type: 'score', payload: raiting });
-        console.log('sum raiting')
     }, [raiting, newScore]);
 
-    const addCart = () => {
-        cart.push(bookId);
-        servises.putCart(cart, userId);
+    // const addCart = () => {
+    //     cart.push(bookId);
+    //     servises.putCart(cart, userId);
+    //     dispatch({ type: 'isInCart', payload: true });
+    //     rendering();
+    // };
+
+
+    // const removeCart = () => {
+    //     cart.splice(cart.indexOf(bookId), 1);
+    //     servises.putCart(cart, userId);
+    //     dispatch({ type: 'isInCart', payload: false });
+    //     rendering();
+    // }
+
+    const addCartItem = () => {
+        const body = {
+            user: userId,
+            product: bookId,
+            price: price,
+            amount: '1'
+        };
+
+        servises.postCartItem(body, rendering)
         dispatch({ type: 'isInCart', payload: true });
-        rendering();
     };
 
-    const removeCart = () => {
-        cart.splice(cart.indexOf(bookId), 1);
-        servises.putCart(cart, userId);
+    const removeCartItem = () => {
+        const body = {
+            product: productId,
+            user: userId,
+        }
+        servises.deleteCartItem(productId, body, rendering)
         dispatch({ type: 'isInCart', payload: false });
-        rendering();
     }
 
     const addFavorite = () => {
@@ -170,7 +209,7 @@ const Deatils = (props) => {
         }
         servises.putBookRating(raiting, bookId);
     };
-    console.log(state.inCart)
+    // console.log(state.inCart)
     return (
         <div className={styles['product-view']}>
             <h2>{lang === 'en' ? 'Details' : 'Детайли'}</h2>
@@ -218,8 +257,8 @@ const Deatils = (props) => {
                                 <Fragment>
                                     {
                                         state.inCart ?
-                                            <button onClick={removeCart}>{lang === 'en' ? 'Remove Cart' : 'Премахни'}</button>
-                                            : <button onClick={addCart}>{lang === 'en' ? 'Add Cart' : 'Добави'}</button>
+                                            <button onClick={removeCartItem}>{lang === 'en' ? 'Remove Cart' : 'Премахни'}</button>
+                                            : <button onClick={addCartItem}>{lang === 'en' ? 'Add Cart' : 'Добави'}</button>
                                     }
                                 </Fragment>
                                 : null

@@ -22,15 +22,32 @@ module.exports = {
             .catch(next);
     },
 
+    // post: (req, res, next) => {
+    //     const { products, price, payment } = req.body;
+    //     const { _id } = req.user;
+
+    //     Order.create({ status: 'New Order', user: _id, products, price, payment })
+    //         .then((createdOrder) => {
+    //             return Promise.all([
+    //                 User.updateOne({ _id }, { $push: { order: createdOrder } }),
+    //                 User.updateOne({ _id }, { $set: { cart: [] } }),
+    //             ]);
+    //         })
+    //         .then(([modifiedObj, orderObj]) => {
+    //             res.send(orderObj);
+    //         })
+    //         .catch(next);
+    // },
+
     post: (req, res, next) => {
-        const { products, price, payment } = req.body;
+        const { orderedItems, price, payment } = req.body;
         const { _id } = req.user;
 
-        Order.create({ status: 'New Order', user: _id, products, price, payment })
+        Order.create({ status: 'New Order', user: _id, orderedItems, price, payment })
             .then((createdOrder) => {
                 return Promise.all([
                     User.updateOne({ _id }, { $push: { order: createdOrder } }),
-                    User.updateOne({ _id }, { $set: { cart: [] } }),
+                    User.updateOne({ _id }, { $set: { cartIt: [] } }),
                 ]);
             })
             .then(([modifiedObj, orderObj]) => {

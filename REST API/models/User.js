@@ -54,6 +54,11 @@ const userSchema = new Schema({
         ref: "Book"
     }],
 
+    cartIt: [{
+        type: ObjectId,
+        ref: "OrderItem"
+    }],
+
     order: [{
         type: ObjectId,
         ref: "Order"
@@ -118,7 +123,9 @@ User.seedAdminUser = async () => {
             username: 'admin@abv.bg',
             firstname: 'Jo',
             lastname: 'Black',
-            password: '111111'
+            password: '111111',
+            city: 'blagoevgrad',
+            addres: 'blagoevgrad'
         })
     } catch (e) {
         console.log(e)
