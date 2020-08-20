@@ -10,16 +10,23 @@ module.exports = {
             .catch(next);
     },
 
+    getSpecComment: (req, res, next) => {
+        const commentId = req.params.id;
+        Comment.findOne({ _id: commentId }).populate('author').populate('book')
+            .then((comments) => res.send(comments))
+            .catch(next);
+    },
+
     getCommentsForSpecificBook: (req, res, next) => {
         const bookId = req.params.id;
-        Comment.find({ book: bookId })
+        Comment.find({ book: bookId }).populate('author').populate('book')
             .then((comments) => res.send(comments))
             .catch(next);
     },
 
     getCommentsForSpecificUser: (req, res, next) => {
         const userId = req.params.id;
-        Comment.find({ author: userId })
+        Comment.find({ author: userId }).populate('author').populate('book')
             .then((comments) => res.send(comments))
             .catch(next);
     },

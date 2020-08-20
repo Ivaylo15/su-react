@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { parseCookeis } from './util/cookie-parse';
 
-export const UserContext = createContext({ logged: false, setingLogged: (log) => { }, user: {}, setingUser: (user) => { }, lang: '', setingLang: () => { }, ren: 0, rendering: () => { } });
+export const UserContext = createContext({ logged: false, setingLogged: (log) => { }, user: {}, lang: '', setingLang: () => { }, ren: 0, rendering: () => { } });
 
 const ContextWrapper = (props) => {
 
@@ -13,6 +13,7 @@ const ContextWrapper = (props) => {
     const [ren, setRen] = useState(0);
 
     useEffect(() => {
+        console.log('yo user')
         fetch("//localhost:9999/api/auth", { credentials: 'include' })
             .then(res => res.status === 200
                 ? res.json()
@@ -40,12 +41,12 @@ const ContextWrapper = (props) => {
         setLogged(log)
     };
 
-    const setingUser = (user) => {
-        setUser(user)
-    };
+    // const setingUser = (user) => {
+    //     setUser(user)
+    // };
 
     return (
-        <UserContext.Provider value={{ logged, setingLogged, user: user, setingUser: setingUser, lang, setingLang, ren: ren, rendering: rendering }}>
+        <UserContext.Provider value={{ logged, setingLogged, user: user, lang, setingLang, ren: ren, rendering: rendering }}>
             {props.children}
         </UserContext.Provider>
     );

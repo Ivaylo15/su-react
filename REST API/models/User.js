@@ -49,11 +49,6 @@ const userSchema = new Schema({
         ref: "Book"
     }],
 
-    cart: [{
-        type: ObjectId,
-        ref: "Book"
-    }],
-
     cartIt: [{
         type: ObjectId,
         ref: "OrderItem"

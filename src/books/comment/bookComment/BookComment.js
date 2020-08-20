@@ -1,32 +1,21 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import styles from './bookComment.module.css';
 import Author from '../../author/Author';
-import axios from 'axios';
-import { servises } from '../../../services/servises';
 import { UserContext } from '../../../ContextWrapper';
 import { Link } from 'react-router-dom';
 
-
-
-
 const BookComment = ({ wholeComment }) => {
     const { user, rendering } = useContext(UserContext);
-    const [book, setBook] = useState({});
+    const { _id: commentId, comment, book, author } = wholeComment;
+    const { _id: bookId, image } = book;
 
-    const { _id, comment, book: bookId, author } = wholeComment;
-
-    useEffect(() => {
-        servises.getSpecificBook(setBook, bookId)
-    }, [bookId]);
-
-    const { image } = book;
     const removeComment = () => {
-        console.log(_id)
+        console.log(commentId)
         const body = {
-            id: _id,
-            author: author
+            id: commentId,
+            author: author._id
         }
-        fetch(`//localhost:9999/api/comment/${_id}`,
+        fetch(`//localhost:9999/api/comment/${commentId}`,
             {
                 method: 'DELETE',
                 headers: {
@@ -43,11 +32,11 @@ const BookComment = ({ wholeComment }) => {
     }
     return (
         <div className={styles.BookComment}>
-            <Link to={'/details/' + bookId} title={bookId} className={styles.Link}><img alt="shoud be a cover" src={image} /></Link>
+            <Link to={`/details/${bookId}`} title={bookId} className={styles.Link}><img alt="shoud be a cover" src={image} /></Link>
             <p>{comment}</p>
             <div className={styles["comment-author"]}>
                 <Author author={author} />
-                {user._id === author || user.role === 'admin' ? <button onClick={removeComment}>x</button> : null}
+                {user._id === author._id || user.role === 'admin' ? <button onClick={removeComment}>x</button> : null}
             </div>
         </div>
     )

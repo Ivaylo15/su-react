@@ -19,8 +19,6 @@ const CartItems = ({ product, deleteItem }) => {
 
     useEffect(() => {
         const handleAmount = () => {
-            console.log(amount)
-            console.log(parseFloat(price) * amount)
             const body = {
                 amount: amount,
                 price: parseFloat(price) * amount

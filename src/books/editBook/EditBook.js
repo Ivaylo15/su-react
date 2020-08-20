@@ -40,9 +40,7 @@ const EditBook = (props) => {
             setGenres(genres => [...genres, newGenre]);
         };
         rendering()
-    }
-
-    console.log(genres)
+    };
 
     return (
         <Formik
@@ -71,8 +69,7 @@ const EditBook = (props) => {
                     description: values.description,
                     genres: genres
                 };
-                servises.editBook(body, url, () => props.history.push('/books'));
-                rendering();
+                servises.editBook(body, url, rendering, () => props.history.push('/books'));
             }}>
 
             <div className={styles["book-form"]}>

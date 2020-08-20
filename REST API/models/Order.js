@@ -14,10 +14,10 @@ const orderSchema = new Schema({
         ref: "User"
     },
 
-    products: [{
-        type: ObjectId,
-        ref: "Book"
-    }],
+    // products: [{
+    //     type: ObjectId,
+    //     ref: "Book"
+    // }],
 
     orderedItems: [{
         type: ObjectId,

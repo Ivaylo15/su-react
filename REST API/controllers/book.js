@@ -1,5 +1,7 @@
 const User = require('../models/User');
 const Book = require('../models/Book');
+// require('../models/Comment')
+// const Comment = require('../models/Comment');
 
 module.exports = {
     get: (req, res, next) => {
@@ -10,13 +12,19 @@ module.exports = {
 
     getSpecificBook: (req, res, next) => {
         const bookId = req.params.id;
-        Book.findOne({ _id: bookId })
+        Book.findOne({ _id: bookId }).populate('comments')
             .then(book => res.send(book))
             .catch(next);
     },
 
     getFavoriteBooks: (req, res, next) => {
-
+        const { favoriteBooks } = req.query.fav;
+        Book.find()
+            .then((books) => {
+                books._id.includes(favoriteBooks)
+            })
+            .then((books) => res.send(books))
+            .catch(next);
     },
 
     getBookByAuthor: (req, res, next) => {

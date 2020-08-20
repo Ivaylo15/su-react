@@ -18,8 +18,8 @@ const initialState = {
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case 'getUser':
-            return { ...state, user: action.payload };
+        // case 'getUser':
+        //     return { ...state, user: action.payload };
         case 'getBook':
             return { ...state, book: action.payload };
         case 'getComments':
@@ -62,14 +62,14 @@ const Deatils = (props) => {
     //triggering useEffect
     const [newScore, setNewScore] = useState('');
     let url = props.location.pathname.split('/')[2];
-    const { _id: userId, cart, cartIt, favoriteBooks, role } = user;
-    const { _id: bookId, title, image, author, publisher, description, price, genres, raiting } = state.book;
-    const [productsInCart, setProductsInCart] = useState([]);
+    const { _id: userId, cartIt, favoriteBooks, role } = user;
+    const { _id: bookId, title, image, author, publisher, description, price, comments, genres, raiting } = state.book;
+    // const [productsInCart, setProductsInCart] = useState([]);
     const [productId, setProductId] = useState('');
 
-    useEffect(() => {
-        servises.getUserDispatch(dispatch);
-    }, [dispatch]);
+    // useEffect(() => {
+    //     servises.getUserDispatch(dispatch);
+    // }, [dispatch]);
 
     useEffect(() => {
         servises.getSpecificBookDispatch(dispatch, url);
@@ -83,7 +83,10 @@ const Deatils = (props) => {
         const isFavorite = () => {
             if (favoriteBooks !== undefined) {
                 favoriteBooks.forEach(userBook => {
-                    if (userBook === bookId) {
+
+                    if (userBook._id === bookId) {
+                        console.log(userBook._id)
+                        console.log(bookId)
                         dispatch({ type: 'isFavorite', payload: true });
                     }
                 });
@@ -92,28 +95,14 @@ const Deatils = (props) => {
         isFavorite();
     }, [bookId, favoriteBooks]);
 
-    useEffect(() => {
-        servises.getCartIt2(cartIt, setProductsInCart);
-    }, [cartIt, ren]);
-
     // useEffect(() => {
-    //     const isInCart = () => {
-    //         if (cart !== undefined) {
-    //             cart.forEach(userBook => {
-    //                 if (userBook === bookId) {
-    //                     dispatch({ type: 'isInCart', payload: true });
-    //                     console.log('cart');
-    //                 }
-    //             });
-    //         };
-    //     };
-    //     isInCart();
-    // }, [bookId, cart]);
+    //     servises.getCartIt(cartIt, setProductsInCart);
+    // }, [cartIt, ren]);
 
     useEffect(() => {
         const isInCart = () => {
-            if (productsInCart !== undefined) {
-                productsInCart.forEach(product => {
+            if (cartIt !== undefined) {
+                cartIt.forEach(product => {
                     if (product.product === bookId) {
                         setProductId(product._id);
                         dispatch({ type: 'isInCart', payload: true });
@@ -122,7 +111,7 @@ const Deatils = (props) => {
             };
         };
         isInCart();
-    }, [bookId, productsInCart]);
+    }, [bookId, cartIt]);
 
     useEffect(() => {
         dispatch({ type: 'userScore', payload: raiting, userId: userId });
@@ -131,21 +120,6 @@ const Deatils = (props) => {
     useEffect(() => {
         dispatch({ type: 'score', payload: raiting });
     }, [raiting, newScore]);
-
-    // const addCart = () => {
-    //     cart.push(bookId);
-    //     servises.putCart(cart, userId);
-    //     dispatch({ type: 'isInCart', payload: true });
-    //     rendering();
-    // };
-
-
-    // const removeCart = () => {
-    //     cart.splice(cart.indexOf(bookId), 1);
-    //     servises.putCart(cart, userId);
-    //     dispatch({ type: 'isInCart', payload: false });
-    //     rendering();
-    // }
 
     const addCartItem = () => {
         const body = {
@@ -270,13 +244,20 @@ const Deatils = (props) => {
                 <div>
                     <AddComment bookId={bookId} />
                 </div> :
-                <div class={styles['not-logged']}>
+                <div className={styles['not-logged']}>
                     <Link to="/login">{lang === 'en' ? 'Log in to comment' : 'Влез за коментар'}</Link>
                 </div>
             }
             <div>
-                {state.comments.length > 0 && state.comments !== undefined ? state.comments.map((comment) => <BookComment key={comment._id} wholeComment={comment} image={image} />) : <p>No Comments</p>}
+                {state.comments.length > 0 && state.comments !== undefined ?
+                    state.comments.map((comment) => <BookComment key={comment._id} wholeComment={comment} image={image} />)
+                    : <p>No Comments</p>}
             </div>
+            {/* <div>
+                { comments !== undefined ?
+                    comments.map((comment) => <BookComment key={comment._id} wholeComment={comment} image={image} />)
+                    : <p>No Comments</p>}
+            </div> */}
         </div>
     )
 }

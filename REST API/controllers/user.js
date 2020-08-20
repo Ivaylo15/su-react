@@ -5,14 +5,14 @@ const { model } = require('mongoose');
 
 module.exports = {
     get: (req, res, next) => {
-        models.User.find()
+        models.User.find().populate('favoriteBooks').populate('cartIt')
             .then((users) => res.send(users))
             .catch(next)
     },
 
     getSpecificUser: (req, res, next) => {
         const userId = req.params.id;
-        models.User.findOne({ _id: userId })
+        models.User.findOne({ _id: userId }).populate('favoriteBooks').populate('cartIt')
             .then((users) => res.send(users))
             .catch(next)
     },

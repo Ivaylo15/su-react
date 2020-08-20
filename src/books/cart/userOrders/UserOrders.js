@@ -7,6 +7,8 @@ import UserOrder from './userOrder/userOrder';
 const UserOrders = () => {
     const { user, lang } = useContext(UserContext);
     const [orders, setOrders] = useState([]);
+    console.log(orders)
+    // console.log(orders)
 
 
     useEffect(() => {

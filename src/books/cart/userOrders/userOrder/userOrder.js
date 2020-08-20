@@ -7,8 +7,9 @@ import { UserContext } from '../../../../ContextWrapper';
 const UserOrder = ({ order }) => {
     const { lang } = useContext(UserContext);
     const { _id, status, orderedItems, payment, price, } = order;
-    const [itmesFromOrder, setItmesFromOrder] = useState([]);
+    // const [itmesFromOrder, setItmesFromOrder] = useState([]);
     const [bgPayment, setBgPayment] = useState([]);
+    console.log(orderedItems);
 
     useEffect(() => {
         const paymentType = () => {
@@ -21,7 +22,7 @@ const UserOrder = ({ order }) => {
             }
         }
 
-        servises.getCartIt2(orderedItems, setItmesFromOrder);
+        // servises.getCartIt(orderedItems, setItmesFromOrder);
         paymentType();
     }, [orderedItems, payment]);
 
@@ -35,11 +36,11 @@ const UserOrder = ({ order }) => {
             </div>
             <div className={styles['pro-price']}>
                 <div>
-                    {itmesFromOrder.map(item => <RenderProducts key={item._id} product={item} />)}
+                    {orderedItems.map(item => <RenderProducts key={item._id} product={item} />)}
                 </div>
                 <div className={styles.payment}>
                     <span className={styles.price}>{lang === 'en' ? `payment: ${payment}` : `плащане: ${bgPayment}`}</span>
-                    <span className={styles.price}>{lang === 'en' ? 'price' : 'цена'}: {price}</span>
+                    <span className={styles.price}>{lang === 'en' ? 'price' : 'цена'}: {parseFloat(price).toFixed(2)}</span>
                 </div>
             </div>
         </div>

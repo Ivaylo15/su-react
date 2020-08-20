@@ -9,12 +9,14 @@ const SpecificUser = (props) => {
     const [user, setUser] = useState({});
 
     let url = props.location.pathname.split('/')[2];
+    console.log(user);
 
-    const { firstname, lastname, favoriteBooks } =user
+    const { firstname, lastname, favoriteBooks } = user;
 
     useEffect(() => {
         servises.getSpecificUser(url, setUser);
     }, [url]);
+
     return (
         <div className={styles['specific-user']}>
             <img alt="prfoile" src="https://thumbs.dreamstime.com/z/default-avatar-profile-icon-vector-user-image-179582665.jpg" />

@@ -1,9 +1,8 @@
-import React, { useEffect, useState, Fragment, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { servises } from '../../../../services/servises';
 import styles from './userOrder.module.css';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../../../ContextWrapper';
-// import styles from './productsRender.module.css';
 
 
 const RenderProducts = ({ product }) => {
@@ -15,7 +14,6 @@ const RenderProducts = ({ product }) => {
 
     useEffect(() => {
         servises.getSpecificBook(setBook, productId);
-        // servises.getSpecificBook(setBook, productId)
     }, [productId]);
 
     return (

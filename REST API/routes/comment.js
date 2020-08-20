@@ -5,6 +5,7 @@ const { auth } = require('../utils');
 router.get('/', comment.get);
 router.get('/book/:id', comment.getCommentsForSpecificBook);
 router.get('/user/:id', comment.getCommentsForSpecificUser);
+router.get('/specComment/:id', comment.getSpecComment);
 
 
 router.post('/', auth(), comment.post);

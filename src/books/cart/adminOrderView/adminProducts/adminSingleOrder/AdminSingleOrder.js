@@ -8,25 +8,22 @@ const AdminSingleOrder = (props) => {
     const { lang, rendering } = useContext(UserContext);
     let url = props.location.pathname.split('/')[2];
     const [order, setOrder] = useState({});
-    const [userInfo, setUserInfo] = useState({});
     const { _id: orderId, status, user, orderedItems, payment, price, } = order;
-    const [itmesFromOrder, setItmesFromOrder] = useState([]);
     const [bgPayment, setBgPayment] = useState([]);
 
 
-    const { firstname, lastname, city, addres } = userInfo;
 
     useEffect(() => {
         servises.getSpecOrders(setOrder, url)
     }, [url]);
 
-    useEffect(() => {
-        servises.getSpecificUser(user, setUserInfo)
-    }, [user]);
+    // useEffect(() => {
+    //     servises.getSpecificUser(user, setUserInfo)
+    // }, [user]);
 
-    useEffect(() => {
-        servises.getCartIt2(orderedItems, setItmesFromOrder);
-    }, [orderedItems]);
+    // useEffect(() => {
+    //     servises.getCartIt(orderedItems, setItmesFromOrder);
+    // }, [orderedItems]);
 
     useEffect(() => {
         const paymentType = () => {
@@ -40,7 +37,7 @@ const AdminSingleOrder = (props) => {
         };
 
         paymentType();
-    }, [payment])
+    }, [payment]);
 
     const handleStatusChange = (e) => {
         const status = e.target.value
@@ -50,7 +47,8 @@ const AdminSingleOrder = (props) => {
         };
 
         servises.changeOrderStatus(body, orderId, rendering);
-    }
+    };
+
 
     return (
         <div className={styles.order}>
@@ -59,7 +57,7 @@ const AdminSingleOrder = (props) => {
                 <div className={styles['prod-stat-price']}>
                     <div>
                         {
-                            itmesFromOrder.map(item => <RenderProducts key={item._id} product={item} />)
+                            orderedItems !== undefined ? orderedItems.map(item => <RenderProducts key={item._id} product={item} />) : <span></span>
                         }
                     </div>
                     <div className={styles['status-price']}>
@@ -73,12 +71,12 @@ const AdminSingleOrder = (props) => {
                         </div>
                         <div className={styles.payment}>
                             <span className={styles.price}>{lang === 'en' ? `payment: ${payment}` : `плащане: ${bgPayment}`}</span>
-                            <span className={styles.price}>{lang === 'en' ? 'price' : 'цена'}: {price}</span>
+                            <span className={styles.price}>{lang === 'en' ? 'price' : 'цена'}: {parseFloat(price).toFixed(2)}</span>
                         </div>
                     </div>
                 </div>
-                <div className={styles['client']}>{lang === 'en' ? 'client' : 'поръчител'}: <span>{firstname} {lastname}</span></div>
-                <div className={styles['addres']}>{lang === 'en' ? 'addres' : 'адрес'}: <span>{lang === 'en' ? 'city' : 'гр.'} {city} {addres}</span></div>
+                <div className={styles['client']}>{lang === 'en' ? 'client' : 'поръчител'}: {user !== undefined ? <span>{user.firstname} {user.lastname}</span> : null}</div>
+                <div className={styles['addres']}>{lang === 'en' ? 'addres' : 'адрес'}:{user !== undefined ? <span>{lang === 'en' ? 'city' : 'гр.'} {user.city} {user.addres}</span> : null} </div>
             </div>
         </div>
     )

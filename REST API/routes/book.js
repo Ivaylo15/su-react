@@ -7,6 +7,7 @@ router.get('/:id', book.getSpecificBook);
 router.get('/author/:id', book.getBookByAuthor);
 router.get('/publisher/:id', book.getBookByPublisher);
 router.get('/genre/:id', book.getBookByGenre);
+router.get('/favorite', book.getFavoriteBooks);
 
 router.post('/', auth(), book.post);
 

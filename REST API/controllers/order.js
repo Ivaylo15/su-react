@@ -10,14 +10,14 @@ module.exports = {
 
     getSpecOrder: (req, res, next) => {
         const orderId = req.params.id;
-        Order.findOne({ _id: orderId })
+        Order.findOne({ _id: orderId }).populate('user').populate('orderedItems')
             .then((order) => res.send(order))
             .catch(next);
     },
 
     getUserOrders: (req, res, next) => {
         const userId = req.params.id;
-        Order.find({ user: userId })
+        Order.find({ user: userId }).populate('orderedItems')
             .then((orders) => res.send(orders))
             .catch(next);
     },

@@ -6,7 +6,7 @@ import { servises } from '../services/servises';
 
 
 
-const Navigation = (props) => {
+const Navigation = () => {
     const { logged, lang, setingLang, user, ren, rendering } = useContext(UserContext);
     // const [user, setUser] = useState({});
     const [suggestedBooks, setSuggestedBooks] = useState([]);
@@ -18,17 +18,16 @@ const Navigation = (props) => {
 
     const genresList = ['fantasy', 'sci-fi', 'historical', 'romance', 'mystery', 'adventure', 'horror', 'dystopian', 'thriller'];
 
-    const { _id: userId, role, cartIt, favoriteBooks } = user;
+    const { role, cartIt, favoriteBooks } = user;
 
 
     useEffect(() => {
-        // servises.getUser(setUser);
         servises.getSuggestedBooks(setSuggestedBooks);
         servises.getAllOrdersHeader(setOrders);
     }, [ren]);
 
 
-    //button selection
+    //button selection rendering with this function
     const settingButRen = (v) => {
         setButRen(ren => ren = ren + v)
     }

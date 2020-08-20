@@ -6,39 +6,30 @@ import { UserContext } from '../../../ContextWrapper';
 
 const FinishOrder = (props) => {
     const { lang, user, rendering } = useContext(UserContext);
-    // const { totalPrice, books } = props.location;
-    // const { totalPrice, books } = props;
-    const [productsInCart, setProductsInCart] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
     const [paymentType, setPaymantType] = useState('');
     const { city, addres, cartIt } = user;
 
-
-    useEffect(() => {
-        servises.getCartIt2(cartIt, setProductsInCart);
-    }, [cartIt]);
-
     useEffect(() => {
         const settingPrice = () => {
             let calPrice = 0;
-            productsInCart.forEach(product => {
-                console.log(product)
+            cartIt.forEach(product => {
                 calPrice += parseFloat(product.price);
             })
             setTotalPrice(calPrice);
         };
 
         settingPrice();
-    }, [productsInCart]);
+    }, [cartIt]);
 
-    console.log(productsInCart)
+    console.log(cartIt)
     const onChangeValue = e => {
         setPaymantType(e.target.value)
     }
 
     const handleSubmit = e => {
         const order = {
-            orderedItems: productsInCart,
+            orderedItems: cartIt,
             price: totalPrice,
             payment: paymentType,
         }
