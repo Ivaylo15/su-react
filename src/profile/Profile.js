@@ -18,25 +18,34 @@ const Profile = () => {
 
     return (
         <div className={styles.Profile}>
-            <img className={styles["prof-img"]} src="https://thumbs.dreamstime.com/z/default-avatar-profile-icon-vector-user-image-179582665.jpg" alt="profile-icon" />
-            <div className={styles["personal-info"]}>
-                <div><Link to={`editUserInfo/${_id}`}>Change Personal Info</Link></div>
-                <p>
-                    <span>Email: </span>
-                    {username}
-                </p>
-                <p>
-                    <span>Comments: </span>
-                    {comments.length}
-                </p>
-                <div><Link to="userOrders">My Orders</Link></div>
+            <div className={styles.user} >
+            {  user.image !== undefined ?
+                    <img className={styles["prof-img"]} src={user.image} alt="profile-icon" />
+                    :
+                    <img className={styles["prof-img"]}  src="https://thumbs.dreamstime.com/z/default-avatar-profile-icon-vector-user-image-179582665.jpg" alt="profile-icon" />
+                }
+                <div className={styles["personal-info"]}>
+                    <p><Link to={`editUserInfo/${_id}`}>Change Personal Info</Link></p>
+                    <p>
+                        <span>Email: </span>
+                        {username}
+                    </p>
+                    <p>
+                        <Link to={`/allComments/${_id}`}>
+
+                            <span>Comments: </span>
+                            {comments.length}
+                        </Link>
+                    </p>
+                    <p><Link to="userOrders"><span>My Orders: </span> {user.order.length}</Link></p>
+                </div>
             </div>
             <div className={styles["profile-comments"]}>
                 <h2>3 of your recent comments</h2>
                 {comments.length > 3 ?
                     comments.slice(comments.length - 3, comments.length).map((comment) => <BookComment key={comment._id} wholeComment={comment} />) :
                     comments.map((comment) => <BookComment key={comment._id} wholeComment={comment} />)}
-                <Link to={`/allComments/${_id}`}><button>Show All Comments</button></Link>
+                {/* <Link to={`/allComments/${_id}`}><button>Show All Comments</button></Link> */}
             </div>
         </div>
     )

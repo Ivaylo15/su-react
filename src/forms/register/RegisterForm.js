@@ -14,7 +14,7 @@ const RegisterForm = (props) => {
 
     return (
         <Formik
-            initialValues={{ email: '', firstname: '', lastname: '', city: '', addres: '', password: '', repassword: '' }}
+            initialValues={{ email: '', firstname: '', lastname: '', city: '', image: '', addres: '', password: '', repassword: '' }}
             validationSchema={Yup.object({
                 email: Yup.string()
                     .email('Invali email!')
@@ -28,6 +28,7 @@ const RegisterForm = (props) => {
                 city: Yup.string()
                     .min(3, 'City must not be empty!')
                     .required('Required'),
+                image: Yup.string(),
                 addres: Yup.string()
                     .min(3, 'Addres must not be empty!')
                     .required('Required'),
@@ -43,6 +44,7 @@ const RegisterForm = (props) => {
                     username: values.email,
                     firstname: values.firstname,
                     lastname: values.lastname,
+                    image: values.image,
                     city: values.city,
                     addres: values.addres,
                     password: values.password
@@ -69,21 +71,28 @@ const RegisterForm = (props) => {
                     </div>
                     <div className={styles["form-control"]}>
                         <label htmlFor="lastname">{lang === 'en' ? 'Last Name' : 'Фамилия'}</label>
-                        <Field name="lastname" type="lastname" />
+                        <Field name="lastname" type="text" />
                         <div>
                             <ErrorMessage name="lastname" />
                         </div>
                     </div>
                     <div className={styles["form-control"]}>
+                        <label htmlFor="image">{lang === 'en' ? 'Image' : 'Снимка'}</label>
+                        <Field name="image" type="text" />
+                        <div>
+                            <ErrorMessage name="image" />
+                        </div>
+                    </div>
+                    <div className={styles["form-control"]}>
                         <label htmlFor="city">{lang === 'en' ? 'City' : 'Град'}</label>
-                        <Field name="city" type="city" />
+                        <Field name="city" type="text" />
                         <div>
                             <ErrorMessage name="city" />
                         </div>
                     </div>
                     <div className={styles["form-control"]}>
                         <label htmlFor="addres">{lang === 'en' ? 'Addres' : 'Адрес'}</label>
-                        <Field name="addres" type="addres" />
+                        <Field name="addres" type="text" />
                         <div>
                             <ErrorMessage name="addres" />
                         </div>

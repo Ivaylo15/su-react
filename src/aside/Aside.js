@@ -6,9 +6,9 @@ import AsideBookList from './asideBookList/AsideBookList';
 
 
 
-const Aside = (props) => {
+const Aside = () => {
     const [users, setUsers] = useState([]);
-    const { ren } = useContext(UserContext);
+    const { lang, ren } = useContext(UserContext);
 
     useEffect(() => {
         servises.getAllUsers(setUsers);
@@ -16,7 +16,7 @@ const Aside = (props) => {
 
     return (
         <aside className={styles.Aside}>
-            <h3>Lists</h3>
+            <h3>{lang === 'en'  ? 'Favorite' : 'Любими'}</h3>
             <ul>
                 {users.sort((a, b) => {return b.favoriteBooks.length - a.favoriteBooks.length} ).map(user => <AsideBookList key={user._id} userInfo={user} />)}
             </ul>

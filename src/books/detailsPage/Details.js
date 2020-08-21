@@ -18,8 +18,6 @@ const initialState = {
 
 const reducer = (state, action) => {
     switch (action.type) {
-        // case 'getUser':
-        //     return { ...state, user: action.payload };
         case 'getBook':
             return { ...state, book: action.payload };
         case 'getComments':
@@ -63,13 +61,8 @@ const Deatils = (props) => {
     const [newScore, setNewScore] = useState('');
     let url = props.location.pathname.split('/')[2];
     const { _id: userId, cartIt, favoriteBooks, role } = user;
-    const { _id: bookId, title, image, author, publisher, description, price, comments, genres, raiting } = state.book;
-    // const [productsInCart, setProductsInCart] = useState([]);
+    const { _id: bookId, title, image, author, publisher, description, price, genres, raiting } = state.book;
     const [productId, setProductId] = useState('');
-
-    // useEffect(() => {
-    //     servises.getUserDispatch(dispatch);
-    // }, [dispatch]);
 
     useEffect(() => {
         servises.getSpecificBookDispatch(dispatch, url);
@@ -94,10 +87,6 @@ const Deatils = (props) => {
         };
         isFavorite();
     }, [bookId, favoriteBooks]);
-
-    // useEffect(() => {
-    //     servises.getCartIt(cartIt, setProductsInCart);
-    // }, [cartIt, ren]);
 
     useEffect(() => {
         const isInCart = () => {

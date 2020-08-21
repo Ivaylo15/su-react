@@ -7,24 +7,43 @@
     padding: 0.5%;
 }
 
+.user{
+    display: flex;
+    padding: 2rem;
+    margin-bottom: 3rem;
+}
+
 .Profile img{
     height: 200px;
-    width: auto;
+    width: 200px;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .personal-info{
-    display: block;
-    text-align: center;
+    padding: 0rem 2rem 2rem 2rem;
     text-decoration: underline;
     margin-bottom: 2%;
     color: #234465;
+    font-size: 18px;
+}
+
+.personal-info p{
+    padding: 0rem 0.5rem 0.5rem 0.5rem;
+    color: #000
+
+}
+
+.personal-info a{
+    color: #000
+}
+
+.personal-info a:hover{
+    color: grey;
 }
 
 .profile-comments a{
     text-decoration: none;
+    
 }
 
 .profile-comments button{

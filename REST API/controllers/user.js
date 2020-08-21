@@ -19,8 +19,8 @@ module.exports = {
 
     post: {
         register: (req, res, next) => {
-            const { username, firstname, city, addres, lastname, password } = req.body;
-            models.User.create({ username, firstname, lastname, city, addres, password })
+            const { username, firstname, image, city, addres, lastname, password } = req.body;
+            models.User.create({ username, firstname, lastname, image, city, addres, password })
                 .then((createdUser) => res.send(createdUser))
                 .catch(next)
         },
@@ -75,8 +75,8 @@ module.exports = {
 
     editUserInfo: (req, res, next) => {
         const id = req.params.id;
-        const { username, firstname, lastname, city, addres} = req.body;
-        models.User.updateOne({ _id: id }, { username, firstname, lastname, city, addres })
+        const { username, firstname, lastname, image, city, addres} = req.body;
+        models.User.updateOne({ _id: id }, { username, firstname, lastname, image, city, addres })
             .then((updatedBook) => res.send(updatedBook))
             .catch(next);
     },

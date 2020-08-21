@@ -9,13 +9,13 @@ import { UserContext } from '../../ContextWrapper';
 const EditUser = (props) => {
 
     const { lang, user, rendering } = useContext(UserContext);
-    const { _id: userId, username, firstname, lastname, city, addres } = user;
+    const { _id: userId, username, firstname, lastname, image, city, addres } = user;
 
     console.log(props)
 
     return (
         <Formik
-            initialValues={{ email: '', firstname: '', lastname: '', city: '', addres: '' }}
+            initialValues={{ email: '', firstname: '', lastname: '', image: '', city: '', addres: '' }}
             validationSchema={Yup.object({
                 email: Yup.string()
                     .email('Invali email!')
@@ -26,6 +26,7 @@ const EditUser = (props) => {
                 lastname: Yup.string()
                     .min(3, 'Last name must be more then 3 characters!')
                     .required('Required'),
+                image: Yup.string(),
                 city: Yup.string()
                     .min(3, 'City must not be empty!')
                     .required('Required'),
@@ -38,6 +39,7 @@ const EditUser = (props) => {
                     username: values.email,
                     firstname: values.firstname,
                     lastname: values.lastname,
+                    image: values.image,
                     city: values.city,
                     addres: values.addres,
                     password: values.password
@@ -50,7 +52,7 @@ const EditUser = (props) => {
                 <Form>
                     <div className={styles["form-control"]}>
                         <label htmlFor="email">{lang === 'en' ? 'Email' : 'Имейл'}</label>
-                        <Field name="email" type="email" placeholder={username}/>
+                        <Field name="email" type="email" placeholder={username} />
                         <div>
                             <ErrorMessage name="email" />
                         </div>
@@ -64,21 +66,28 @@ const EditUser = (props) => {
                     </div>
                     <div className={styles["form-control"]}>
                         <label htmlFor="lastname">{lang === 'en' ? 'Last Name' : 'Фамилия'}</label>
-                        <Field name="lastname" type="lastname" placeholder={lastname} />
+                        <Field name="lastname" type="text" placeholder={lastname} />
                         <div>
                             <ErrorMessage name="lastname" />
                         </div>
                     </div>
                     <div className={styles["form-control"]}>
+                        <label htmlFor="image">{lang === 'en' ? 'Image' : 'Снимка'}</label>
+                        <Field name="image" type="text" placeholder={image} />
+                        <div>
+                            <ErrorMessage name="image" />
+                        </div>
+                    </div>
+                    <div className={styles["form-control"]}>
                         <label htmlFor="city">{lang === 'en' ? 'City' : 'Град'}</label>
-                        <Field name="city" type="city" placeholder={city} />
+                        <Field name="city" type="text" placeholder={city} />
                         <div>
                             <ErrorMessage name="city" />
                         </div>
                     </div>
                     <div className={styles["form-control"]}>
                         <label htmlFor="addres">{lang === 'en' ? 'Addres' : 'Адрес'}</label>
-                        <Field name="addres" type="addres" placeholder={addres} />
+                        <Field name="addres" type="text" placeholder={addres} />
                         <div>
                             <ErrorMessage name="addres" />
                         </div>

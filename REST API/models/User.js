@@ -29,6 +29,10 @@ const userSchema = new Schema({
         required: true
     },
 
+    image: {
+        type: String,
+    },
+
     city: {
         type: String,
         required: true

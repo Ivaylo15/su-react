@@ -51,7 +51,7 @@ const Cart = () => {
                         <div>
                             {user.cartIt.map(product => <CartItems key={product._id} product={product} deleteItem={deleteItem} />)}
                         </div>
-                    </div> : <div><h2>Cart is Empty</h2></div>
+                    </div> : <div><h2>{lang === 'en' ? 'Cart is Empty' : 'Празна Количка'}</h2></div>
                 }
             </div>
         </div>
