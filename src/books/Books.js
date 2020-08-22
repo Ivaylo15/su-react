@@ -3,6 +3,7 @@ import styles from './books.module.css';
 import Book from './book/Book';
 import { servises } from '../services/servises';
 import { UserContext } from '../ContextWrapper';
+import Loader from '../shared/loader/Loader';
 // import bookData from '../bookData';
 
 
@@ -17,9 +18,9 @@ const Books = () => {
         <div className={styles.Books}>
             <h2>{lang === 'en' ? 'Books' : 'Книги'}</h2>
             <div className={styles.container}>
-                {books.sort((a, b) => {if(a.title < b.title){return -1}}).map((book) => <Book key={book._id} book={book} />)}
+                {books.sort((a, b) => { if (a.title < b.title) { return -1 } }).map((book) => <Book key={book._id} book={book} />)}
             </div>
-        </div> : <div className={styles.Books}> Loading ...</div>
+        </div> : <Loader />
 }
 
 export default Books;
