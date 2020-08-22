@@ -7,3 +7,4 @@ user: all of the guest functionality plus adding books to favorites, suggesting 
 
 admin: adding books, editing books, deleting books, deleting all comments, receiving all orders
  with information about the user, changing order status, receiving suggested books
+ admin-account: admin@abv.bg pass: 111111
