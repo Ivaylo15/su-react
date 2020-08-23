@@ -6,8 +6,7 @@ import RouterPaths from './RouterPaths';
 
 
 function App() {
-
-
+  
   return (
     <ContextWrapper>
       <RouterPaths />

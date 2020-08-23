@@ -37,7 +37,6 @@ import EditUser from '../forms/editUser/EditUser';
 
 
 const RouterPaths = (props) => {
-  document.title = "WorkShop";
   const { user, logged } = useContext(UserContext);
   const { role } = user;
   document.title = "Books";

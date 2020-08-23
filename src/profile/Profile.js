@@ -18,7 +18,7 @@ const Profile = () => {
 
 
     return (
-        comments.length > 0 && user.order.length > 0 ?
+        comments.length >= 0 && user.order.length >= 0 ?
             <div className={styles.Profile}>
                 <div className={styles.user} >
                     {user.image !== undefined ?
